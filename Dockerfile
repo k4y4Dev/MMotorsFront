@@ -17,7 +17,7 @@ FROM nginx:1.29.4-alpine3.23
 # If personal config needed (optional)
 #COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=build /app/dist/motorsfront/browser /usr/share/nginx/html
+COPY --from=build /app/dist/motorsFront/browser /usr/share/nginx/html
 
 EXPOSE 80
 
