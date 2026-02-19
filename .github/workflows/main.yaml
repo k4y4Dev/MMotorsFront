@@ -8,6 +8,7 @@ jobs:
 
   sonar-analysis:
     name: Sonar Analysis
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     environment: prod
 
