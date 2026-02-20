@@ -52,11 +52,11 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/k4y4dev/angular-frontend:latest .
+          docker build -t ghcr.io/k4y4dev/angular-frontend:${{ github.sha }} .
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/k4y4dev/angular-frontend:latest
+          docker push ghcr.io/k4y4dev/angular-frontend:${{ github.sha }}
 
       - name: Trigger Render Deploy Hook
         run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
