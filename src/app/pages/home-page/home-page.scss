@@ -1,0 +1,55 @@
+.serviceList{
+    display: none;
+}
+.buttonList{
+    display: flex;
+    gap: 10px;
+    padding: 0;
+}
+.buttonList li{
+    list-style-type: none;
+
+    flex-basis: 20%;
+    background-color: #55BA22;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    color: black;
+}
+.buttonList li:hover{
+    background-color: 181a1e;
+    color: white;
+    border: 1px solid white;
+    background-color: #181a1e;
+
+}
+
+.buttonList li a{
+    text-decoration: none;
+    text-align: center;
+    color: inherit;
+    display: block;
+    font-weight: bolder;
+
+}
+
+@media (min-width:600px){
+
+.serviceList{
+    display: flex;
+    padding: 0;
+    justify-content: space-between;
+    gap: 2em;
+
+
+}
+.serviceList li{
+    border: 1px solid white;
+    border-radius: 5px;
+    list-style-type: none;
+
+    text-align: center;
+    padding: 1em;
+}
+
+}

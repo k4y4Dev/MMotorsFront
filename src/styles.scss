@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    background: linear-gradient(
+        to left,
+        #181a1e, 
+        #5e676b);
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    color: #feffff;
+    font-family: "Roboto", sans-serif;
+
+
+
+}
+
+.no-scroll {
+  overflow: hidden;
+  width: 100%;
+}
