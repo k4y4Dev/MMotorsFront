@@ -26,6 +26,11 @@ header section:first-child,main,footer{
 
 }
 
+.loginLine span:last-child:hover{
+    cursor: pointer;
+    color: #55BA22;
+}
+
 .navbarDrawer{
     background-color: #feffff;
     color: black;
