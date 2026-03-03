@@ -1,11 +1,13 @@
 <header>
     <section class="loginLine">
-        <span class="burgerMenu" (click)="drawerStatus()">Burger</span>
+        <span class="burgerMenu" (click)="drawerStatus()">
+            <i class="fa-solid {{burgerIcon}} fa-2xl" style="color: rgb(236, 234, 241);"></i>
+        </span>
         <a href="#"><img src="assets/logo_v1.png" alt="logo MMotors" ></a>
         <span>Login</span>
     </section>
     @if (burgerStatus) {
-      <div class="backdrop" (click)="drawerStatus()"></div>
+      <div class="backdrop"  aria-hidden="true" (click)="drawerStatus()"></div>
     }
     <section class="navbarDrawer" [ngClass]="this.burgerStatus?'drawerOpen':'drawerClose'">
         <app-navbar></app-navbar>
