@@ -1,0 +1,63 @@
+header section:first-child,main,footer{
+    padding: 1em;
+}
+
+
+.loginLine{
+    display: flex;
+    column-gap: 10px;
+    padding-top: 1em;
+    padding: 1em;
+
+}
+.loginLine .burgerMenu{
+    width: 1em;
+    height: 100%;
+}
+.loginLine img{
+    height: 100px;
+    position: absolute;
+    top: -20px;
+    left: 50px;
+}
+
+.loginLine span:last-child{
+    margin-left: auto;
+
+}
+
+.navbarDrawer{
+    background-color: #feffff;
+    color: black;
+    width: 100%;
+    position: absolute;
+    height: 100vh;
+
+}
+.drawerClose{
+    transform: translateX(-100%);
+    transition: transform 0.25s;
+
+    
+}
+.drawerOpen{
+    transform: translateX(0%);
+    transition: transform 0.25s;
+
+}
+
+@media (min-width:600px){
+    .navbarDrawer{
+        width: 50%;
+
+
+    }
+
+    .backdrop{
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
+    }
+}
