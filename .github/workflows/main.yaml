@@ -59,4 +59,4 @@ jobs:
           docker push ghcr.io/k4y4dev/angular-frontend:${{ github.sha }}
 
       - name: Trigger Render Deploy Hook
-        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}&imgURL=ghcr.io/k4y4dev/angular-frontend:${{ github.sha }}"
