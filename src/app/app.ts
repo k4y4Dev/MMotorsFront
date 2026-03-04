@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component,  signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './parts/navbar/navbar';
 import { CommonModule } from '@angular/common';
@@ -13,15 +13,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App implements OnInit{
-  protected readonly title = signal('motorsFront');
-  burgerStatus!: boolean;
-  burgerIcon!: string;
+export class App{
 
-  ngOnInit(): void {
-    this.burgerStatus = false;
-    this.burgerIcon = "fa-bars"
-  }
+  burgerStatus: boolean = false;
+  burgerIcon: string = "fa-bars";
+
+
 
 
   drawerStatus(){
