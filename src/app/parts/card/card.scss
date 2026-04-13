@@ -1,0 +1,22 @@
+
+article{
+
+    border: 1px solid white;
+    border-radius: 5px;
+    min-width: 300px;
+    flex: 0 0 100%;
+}
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+@media (min-width: 600px) {
+  .card { flex: 0 0 50%; } /* 2 cartes */
+}
+
+@media (min-width: 1000px) {
+  .card { flex: 0 0 33.33%; } /* 3 cartes */
+}
+

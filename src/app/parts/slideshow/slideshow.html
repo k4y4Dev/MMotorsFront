@@ -1,0 +1,10 @@
+<div class="carousel" appScreenSizeChecker>
+    @for ( card of images; track card.id; let idx = $index) {
+            <app-card [indexSlide]="card.url" #test></app-card>
+    }
+
+<!--     <button (click)="prev()" class="prev"><</button>
+    <button (click)="next()" class="next">></button> -->
+<!--     <img [src]="images[currentIndex]" alt=""> -->
+
+</div>

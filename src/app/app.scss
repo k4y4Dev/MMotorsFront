@@ -37,6 +37,7 @@ header section:first-child,main,footer{
     width: 100%;
     position: absolute;
     height: 100vh;
+    z-index: 1000;
 
 }
 .drawerClose{
@@ -64,5 +65,6 @@ header section:first-child,main,footer{
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(2px);
+        z-index: 950;
     }
 }
