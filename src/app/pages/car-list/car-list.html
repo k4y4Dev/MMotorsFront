@@ -1,0 +1,8 @@
+<h1>
+    Acheter une voiture
+</h1>
+<section class="deck">
+         @for ( car of cars(); track car.id; let idx = $index) {
+            <app-card [carData]="car"  (click)="navigateToCar(car.id)" #test></app-card>
+    } 
+</section>

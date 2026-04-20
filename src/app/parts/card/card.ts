@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { ICar } from '../../_interfaces/icar';
 
 @Component({
   selector: 'app-card',
@@ -8,6 +9,9 @@ import { Component, input } from '@angular/core';
 })
 export class Card {
 
-  indexSlide = input.required<string>()
+  carData = input.required<ICar>()
+
+/*   indexSlide = input.required<string>()
+ */
 
 }

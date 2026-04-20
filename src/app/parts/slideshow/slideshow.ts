@@ -7,7 +7,7 @@ import { ScreenSizeChecker } from '../../_directives/screen-size-checker';
 @Component({
   selector: 'app-slideshow',
   imports: [
-    Card,
+/*     Card, */
     ScreenSizeChecker
   ],
   templateUrl: './slideshow.html',
