@@ -1,5 +1,5 @@
 import { Component, computed, inject, input, Signal } from '@angular/core';
-import { ICar } from '../../_interfaces/icar';
+import { ICar } from '../../_models/icar';
 import { CarService } from '../../_services/car-service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';

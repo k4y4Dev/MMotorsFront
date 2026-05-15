@@ -1,0 +1,36 @@
+<p>login works!</p>
+{{loginForm().value() | json}}
+<form (submit)="submitForm($event)">
+    <h2>Login</h2>
+    <div>
+        <label for="username">Email</label>
+        <input 
+            [formField]="loginForm.username"
+            placeholder="example@smth.com"
+            type="email"
+        >
+        @if(loginForm.username().touched()) {
+            @for (error of loginForm.username().errors(); track error.kind) {
+                <span>{{error.message}}</span>
+            }
+        }
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input
+            [formField]="loginForm.password"
+            placeholder="yourPassword" 
+            type="password">
+            @if(loginForm.password().touched()) {
+                @for (error of loginForm.password().errors(); track error.kind) {
+                <span>{{error.message}}</span>
+            }
+        }
+    </div>
+    <button 
+        [disabled]="loginForm().invalid() || loginForm().submitting()"
+        type="submit">Login</button>
+    <p>
+        Do you not have an account?
+    </p>
+</form>

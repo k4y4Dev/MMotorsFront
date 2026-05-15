@@ -1,6 +1,6 @@
 import { Component, inject, Signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { ICar } from '../../_interfaces/icar';
+import { ICar } from '../../_models/icar';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Card } from '../../parts/card/card';
 import { CarService } from '../../_services/car-service';
