@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { ICar } from '../../_interfaces/icar';
+import { ICar } from '../../_models/icar';
 
 @Component({
   selector: 'app-card',
