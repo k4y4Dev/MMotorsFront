@@ -4,7 +4,7 @@ import { CarList } from './pages/car-list/car-list';
 import { ItemPage } from './pages/item-page/item-page';
 import { LoginPage } from './pages/login-page/login-page';
 import { Profile } from './pages/profile/profile';
-import { Dashboard } from './dashboard/dashboard';
+import { Dashboard } from './pages/dashboard/dashboard';
 import { authGuardGuard } from './_guards/auth-guard-guard';
 import { adminGuardGuard } from './_guards/admin-guard-guard';
 

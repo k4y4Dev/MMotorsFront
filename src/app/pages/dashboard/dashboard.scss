@@ -1,0 +1,33 @@
+:host{
+    display: flex;
+    height: 100vh;
+
+}
+.sidebar{
+    background-color: #feffff;
+    color: black;
+    margin-left: -20px;
+    flex-basis: 20%;
+    padding-top: 10px;
+
+}
+.sidebar ul{
+    width: 80%;
+    padding: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    
+}
+.sidebar ul li{
+    list-style-type: none;
+    width: 100%;
+
+
+}
+.dashBody{
+    text-align: center;
+    flex: auto;
+}
