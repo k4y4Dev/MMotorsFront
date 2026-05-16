@@ -43,6 +43,12 @@ export class AuthService {
 /*     return of(true).pipe(delay(4000)) */
     }
 
+  logout(): void {
+    //To develop ==> destruct cookie BE side
+    this._currentUser.set(null);
+    this.router.navigateByUrl("/");
+  }
+
   checkAuthStatus(): Observable<User | null> {
 
       return this.http.get<User>(`http://localhost:8000/api/users/me`, { withCredentials: true }).pipe(
