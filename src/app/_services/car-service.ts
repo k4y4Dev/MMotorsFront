@@ -1,24 +1,39 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ICar } from '../_models/icar';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { ICar, ICarResponse } from '../_models/icar';
+import { CarFormModel } from '../_models/form-models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarService {
     private http = inject(HttpClient)
-    readonly url = 'http://127.0.0.1:8000/api'
+    readonly url = 'http://localhost:8000/api'
+    private _newCar = signal<ICarResponse | null>(null)
   // readonly url = environment.apiUrl;
 
   constructor(){}
 
-  getAllCars(): Observable<ICar[]> {
-    return this.http.get<ICar[]>(`${this.url}/cars`)
+  getAllCars(): Observable<ICarResponse[]> {
+    return this.http.get<ICarResponse[]>(`${this.url}/cars`)
   }
   
-  getCar(id_car: number | undefined): Observable<ICar> {
-    return this.http.get<ICar>(`${this.url}/cars/${id_car}`)
+  getCar(id_car: number | undefined): Observable<ICarResponse> {
+    return this.http.get<ICarResponse>(`${this.url}/cars/${id_car}`)
+  }
+
+  createCar(car: CarFormModel): Observable<ICarResponse> {
+
+
+    return this.http.post<ICarResponse>(`${this.url}/cars`, car, { withCredentials: true}).pipe(
+      tap((response: ICarResponse) => {
+        this._newCar.set(response)
+        console.log(this._newCar())
+      }
+
+      )
+    )
   }
   
 }

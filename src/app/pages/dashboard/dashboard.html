@@ -1,11 +1,29 @@
 <section class="sidebar">
     <ul>
-        <li>Profil</li>
-        <li>Ajouter une voiture</li>
-        <li>Liste voiture</li>
+        <li  (click)='changeMenuTopic("profile")' onkeypress="changeMenuTopic('profile')">Profil</li>
+        <li  (click)='changeMenuTopic("addCar")' onkeypress="changeMenuTopic('addCar')">Ajouter une voiture</li>
+        <li  (click)='changeMenuTopic("carList")' onkeypress="changeMenuTopic('carList')">Liste voiture</li>
         <li>?</li>
     </ul>
 </section>
 <section class="dashBody">
     <h2>Dashboard</h2>
+    @if(selectedTopic() == "profile") {
+        <h3>Profile</h3>
+    }
+    @if(selectedTopic() == "addCar") {
+        <app-car-form  [carData]=null></app-car-form>
+    }
+    @if(selectedTopic() == "carList") {
+         @for ( car of cars(); track car.id; let idx = $index) {
+            <app-card [carData]="car"  #test></app-card>
+<!--             <app-card [carData]="car"  (click)="navigateToCar(car.id)" #test></app-card>
+ -->        } 
+    }
+    @if(selectedTopic() == "edit") {
+        <app-car-form [carData]="carToEdit()"></app-car-form>
+        <app-card [carData]="carToEdit()"  #test></app-card>
+
+    }
+
 </section>
