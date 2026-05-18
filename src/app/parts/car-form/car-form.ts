@@ -5,6 +5,8 @@ import { firstValueFrom } from 'rxjs';
 import { JsonPipe } from '@angular/common';
 import { CarService } from '../../_services/car-service';
 import { ICarResponse } from '../../_models/icar';
+import { DashboardService } from '../../_services/dashboard-service';
+import { Router } from '@angular/router';
 
 export const carFormSchema = schema<CarFormModel>((rootPath) => {
       required(
@@ -36,6 +38,8 @@ export const carFormSchema = schema<CarFormModel>((rootPath) => {
 export class CarForm implements OnInit{
 
   private carService = inject(CarService)
+  private dashService = inject(DashboardService)
+  private router = inject(Router)
   carData = input.required<ICarResponse | null>()
   btnName = signal<string>("Ajouter")
 
@@ -74,9 +78,15 @@ export class CarForm implements OnInit{
     submit(this.carForm, async (form) => {
 
       try {
-        await firstValueFrom(this.carService.createCar(form().value()))
+      const car = this.carData(); // ← on lit le signal
 
-        return 
+      const request$ = car 
+        ? this.carService.updateCar(car.id, form().value()) // mode édition
+        : this.carService.createCar(form().value());        // mode création
+
+      await firstValueFrom(request$);
+      this.router.navigateByUrl('dashboard')
+      this.dashService.topicMenuSetter('carList')
       } catch (error)  {
         return console.error();
         

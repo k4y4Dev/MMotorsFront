@@ -2,6 +2,8 @@ import { Component, inject, input } from '@angular/core';
 import { ICar, ICarResponse } from '../../_models/icar';
 import { Router } from '@angular/router';
 import { DashboardService } from '../../_services/dashboard-service';
+import { CarService } from '../../_services/car-service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-card',
@@ -13,6 +15,7 @@ export class Card {
 
   private router = inject(Router);
   private dashService = inject(DashboardService)
+  private carService = inject(CarService)
 
   public urlPath:string = "" 
 
@@ -27,7 +30,21 @@ export class Card {
   editThisCar(pickedCar:ICarResponse | null) {
     this.dashService.editCar(pickedCar)
   }
+async deleteThisCar(pickedCar: ICarResponse | null) {
 
+      try {
+
+
+      await firstValueFrom(this.carService.deleteThisCar(pickedCar?.id));
+
+
+      this.router.navigateByUrl('dashboard')
+      this.dashService.topicMenuSetter('carList')
+      } catch (error)  {
+        return console.error();
+        
+      }
+  }
 /*   indexSlide = input.required<string>()
  */
 

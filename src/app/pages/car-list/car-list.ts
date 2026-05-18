@@ -18,12 +18,8 @@ export class CarList {
   private readonly carService = inject(CarService)
   private router = inject(Router)
 
-  public cars: Signal<ICarResponse[]>
+  readonly cars = this.carService.carsSignal;
 
-
-  constructor(){
-    this.cars = toSignal(this.carService.getAllCars()) as Signal<ICarResponse[]>
-  }
 
   navigateToCar(idCar: number) {
 

@@ -23,14 +23,9 @@ readonly selectedTopic = computed(() => this.dashService.topicMenuGetter())
 readonly carToEdit = computed(() => this.dashService.getPickedCar())
 
 public _dashboardMenu = signal<string>("profile")
-public cars: Signal<ICarResponse[]>
+readonly cars = this.carService.carsSignal;
 
 
-
-  constructor(){
-
-    this.cars = toSignal(this.carService.getAllCars()) as Signal<ICarResponse[]>
-  }
 
 changeMenuTopic(topic: string) {
   this.dashService.topicMenuSetter(topic)
