@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { LoginFormModel } from '../_models/login-form-model';
+import { LoginFormModel } from '../_models/form-models';
 import { catchError, delay, Observable, of, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApiAuthResponse, User } from '../_models/user';

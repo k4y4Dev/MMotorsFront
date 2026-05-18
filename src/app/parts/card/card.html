@@ -1,13 +1,19 @@
 <article>
 
-    <img src="{{`/assets/${carData().image}`}}" alt="Photo d'une berline noire">
+    <img src="{{`/assets/${carData()?.image}`}}" alt="Photo d'une berline noire">
     <section>
-    <h3>{{carData().name}}</h3>
-    <ul>
-        <li>{{carData().price}} $</li>
-        <li>{{carData().km}} Km</li>
-        <li>Essence</li>
-    </ul>
+        @if(urlPath === '/dashboard') {
+            <button (click)='editThisCar(carData())' onkeypress='editThisCar(carData())'>Editer</button>
+            <br>
+            <button (click)='deleteThisCar(carData())' onkeypress='deleteThisCar(carData())'>Supprimer</button>
+
+        }
+        <h3>{{carData()?.name}}</h3>
+        <ul>
+            <li>{{carData()?.price}} $</li>
+            <li>{{carData()?.km}} Km</li>
+            <li>Essence</li>
+        </ul>
     </section>
 
 

@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LoginFormModel } from '../../_models/login-form-model';
+import { LoginFormModel } from '../../_models/form-models';
 import {  email, form, FormField, required, schema, submit } from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
