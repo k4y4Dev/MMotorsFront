@@ -1,1 +1,25 @@
 <p>profile works!</p>
+<div>
+    <form (submit)="uploadImage($event)">
+            <label for="image">Image:</label>
+        <input 
+            type="file" 
+            accept="image/jpeg, image/png, image/webp"
+            (change)="uploadImage($event)">
+        
+        <!-- Preview de l'image -->
+        @if(imagePreview()) {
+            <img [src]="imagePreview()" alt="preview" style="width: 200px">
+        }
+        <button 
+            [disabled]="isUploading()"
+            type="submit">
+            {{ isUploading() ? 'Upload en cours...' : 'Ajouter un document' }}
+        </button>
+    </form>
+
+</div>
+<div>
+    <h3>{{tempSignal()}}</h3>
+    <img  [src]="tempSignal()" alt="test">
+</div>
