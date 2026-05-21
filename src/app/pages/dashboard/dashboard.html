@@ -17,8 +17,10 @@
     @if(selectedTopic() == "carList") {
          @for ( car of cars(); track car.id; let idx = $index) {
             <app-card [carData]="car"  #test></app-card>
-<!--             <app-card [carData]="car"  (click)="navigateToCar(car.id)" #test></app-card>
- -->        } 
+<!--             <app-card [carData]="car"  (click)="navigateToCar(car.id)" #test></app-card>-->
+
+                    } 
+            <app-pagination></app-pagination> 
     }
     @if(selectedTopic() == "edit") {
         <app-car-form [carData]="carToEdit()"></app-car-form>
