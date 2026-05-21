@@ -24,7 +24,6 @@ export class Pagination {
     this.currentPage.set(pageNumb)
 
     this.carService.loadCars(skip)
-    console.log(this.hasMorePages)
   }
 
 
