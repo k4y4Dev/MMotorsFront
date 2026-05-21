@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { ICarResponse } from '../_models/icar';
+import { ICarResponse, PaginatedCarResponse } from '../_models/icar';
 import { CarFormModel } from '../_models/form-models';
 
 @Injectable({
@@ -14,15 +14,39 @@ export class CarService {
   // ✅ signal public de la liste
   carsSignal = signal<ICarResponse[]>([]);
 
+  private currentSkip = signal<number>(0);
+  private currentLimit = signal<number>(10);
+  private hasMore = signal<boolean>(true)
+
+
   constructor() {
     this.loadCars(); // ← charge la liste au démarrage
   }
 
   // ✅ charge la liste et alimente le signal
-  loadCars() {
-    this.http.get<ICarResponse[]>(`${this.url}/cars`).subscribe(cars => {
-      this.carsSignal.set(cars);
+  loadCars( skip = 0, limit = 10) {
+    let params = new HttpParams()
+      .set('skip', skip)
+      .set('limit', limit);
+
+    this.http.get<PaginatedCarResponse>(`${this.url}/cars`, {params}).subscribe(paginatedResponse => {
+      console.log(paginatedResponse)
+      this.carsSignal.set(paginatedResponse.cars);
+      this.currentSkip.set(paginatedResponse.skip);
+      this.currentLimit.set(paginatedResponse.limit);
+      this.hasMore.set(paginatedResponse.has_more);
+
+
     });
+  }
+
+  getSignal(signalKey: 'currentSkip' | 'currentLimit' | 'hasMore') {
+    const signalMap = { 
+      currentSkip: this.currentSkip, 
+      currentLimit: this.currentLimit, 
+      hasMore: this.hasMore 
+    };
+    return signalMap[signalKey];
   }
 
   getCar(id_car: number | undefined): Observable<ICarResponse> {

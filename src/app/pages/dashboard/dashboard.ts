@@ -5,12 +5,14 @@ import { ICarResponse } from '../../_models/icar';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CarService } from '../../_services/car-service';
 import { DashboardService } from '../../_services/dashboard-service';
+import { Pagination } from '../../parts/pagination/pagination';
 
 @Component({
   selector: 'app-dashboard',
   imports: [
     CarForm,
-    Card
+    Card,
+    Pagination
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
