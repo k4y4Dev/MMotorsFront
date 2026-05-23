@@ -5,12 +5,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Card } from '../../parts/card/card';
 import { CarService } from '../../_services/car-service';
 import { Pagination } from '../../parts/pagination/pagination';
+import { Filter } from '../../parts/filter/filter';
 
 @Component({
   selector: 'app-car-list',
   imports: [
     Card,
-    Pagination
+    Pagination,
+    Filter
   ],
   templateUrl: './car-list.html',
   styleUrl: './car-list.scss',
