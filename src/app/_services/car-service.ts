@@ -3,12 +3,14 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { ICarResponse, PaginatedCarResponse } from '../_models/icar';
 import { CarFormModel, FilterFormModel } from '../_models/form-models';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarService {
   private http = inject(HttpClient);
+  private router = inject(Router)
   readonly url = 'http://localhost:8000/api';
 
   // ✅ signal public de la liste
@@ -21,6 +23,10 @@ export class CarService {
   //refacto later
   private activeFilters = signal<Partial<FilterFormModel>>({});
 
+  private currentUrl = this.router.url
+  private carListUrl = (this.currentUrl === "/leasing" || this.currentUrl === "/buying")?this.currentUrl:null
+
+
 
   constructor() {
     this.loadCars(); // ← charge la liste au démarrage
@@ -28,9 +34,13 @@ export class CarService {
 
   // ✅ charge la liste et alimente le signal
   loadCars(skip = 0, limit = 10, ) {
+    console.log(this.currentUrl)
+    console.log(this.carListUrl)
     let params = new HttpParams()
       .set('skip', skip)
       .set('limit', limit);
+
+    if (this.carListUrl)    params = params.set('trade', this.carListUrl.replace("/", ""));
 
     params = this.addFilters(params); // ← applique les filtres si présents
 

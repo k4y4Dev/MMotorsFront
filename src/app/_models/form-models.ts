@@ -13,6 +13,7 @@ export interface CarFormModel {
 
 export interface FilterFormModel{
     km: number,
-    price: number
+    price: number,
+    trade?: string
 
 }
