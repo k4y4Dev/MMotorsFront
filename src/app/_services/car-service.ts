@@ -2,13 +2,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { ICarResponse, PaginatedCarResponse } from '../_models/icar';
-import { CarFormModel } from '../_models/form-models';
+import { CarFormModel, FilterFormModel } from '../_models/form-models';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarService {
   private http = inject(HttpClient);
+  private router = inject(Router)
   readonly url = 'http://localhost:8000/api';
 
   // ✅ signal public de la liste
@@ -18,16 +20,29 @@ export class CarService {
   private currentLimit = signal<number>(10);
   private hasMore = signal<boolean>(true)
 
+  //refacto later
+  private activeFilters = signal<Partial<FilterFormModel>>({});
+
+  private currentUrl = this.router.url
+  private carListUrl = (this.currentUrl === "/leasing" || this.currentUrl === "/buying")?this.currentUrl:null
+
+
 
   constructor() {
     this.loadCars(); // ← charge la liste au démarrage
   }
 
   // ✅ charge la liste et alimente le signal
-  loadCars( skip = 0, limit = 10) {
+  loadCars(skip = 0, limit = 10, ) {
+    console.log(this.currentUrl)
+    console.log(this.carListUrl)
     let params = new HttpParams()
       .set('skip', skip)
       .set('limit', limit);
+
+    if (this.carListUrl)    params = params.set('trade', this.carListUrl.replace("/", ""));
+
+    params = this.addFilters(params); // ← applique les filtres si présents
 
     this.http.get<PaginatedCarResponse>(`${this.url}/cars`, {params}).subscribe(paginatedResponse => {
       console.log(paginatedResponse)
@@ -79,4 +94,16 @@ export class CarService {
       })
     );
   }
+//refacto later
+applyFilters(filters: Partial<FilterFormModel>): void {
+  this.activeFilters.set(filters);
+  this.loadCars(); // ← reset la pagination au changement de filtre
+}
+
+private addFilters(params: HttpParams): HttpParams {
+  const filters = this.activeFilters();
+  if (filters.km)    params = params.set('km_max', filters.km);
+  if (filters.price) params = params.set('price_max', filters.price);
+  return params;
+}
 }

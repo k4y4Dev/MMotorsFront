@@ -11,8 +11,10 @@ import { adminGuardGuard } from './_guards/admin-guard-guard';
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomePage },
-    { path: 'cars', component: CarList },
-    { path: 'cars/:id', component: ItemPage },
+    { path: 'leasing', component: CarList },
+    { path: 'leasing/:id', component: ItemPage },
+    { path: 'buying', component: CarList },
+    { path: 'buying/:id', component: ItemPage },
     { path: 'login', component: LoginPage },
     { path: 'profile', component: Profile, canActivate: [authGuardGuard] },
     { path: 'dashboard', component: Dashboard, canActivate: [adminGuardGuard]},

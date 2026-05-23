@@ -10,3 +10,10 @@ export interface CarFormModel {
     km: number;
     image: string;
 }
+
+export interface FilterFormModel{
+    km: number,
+    price: number,
+    trade?: string
+
+}
