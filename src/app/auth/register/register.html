@@ -1,0 +1,56 @@
+{{registerForm().value() | json}}
+<form (submit)="submitForm($event)">
+    <h2>Register</h2>
+    <div>
+        <label for="username">Email</label>
+        <input 
+            [formField]="registerForm.username"
+            placeholder="example@smth.com"
+            type="email"
+        >
+        @if(registerForm.username().touched()) {
+            @for (error of registerForm.username().errors(); track error.kind) {
+                <span>{{error.message}}</span>
+            }
+        }
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input
+            [formField]="registerForm.password"
+            placeholder="yourPassword" 
+            type="password">
+            @if(registerForm.password().touched()) {
+                @for (error of registerForm.password().errors(); track error.kind) {
+                <span>{{error.message}}</span>
+            }
+        }
+    </div>
+    <div>
+        <label for="lastname">Nom de famille:</label>
+        <input
+            [formField]="registerForm.lastname"
+            placeholder="Votre nom de famille" 
+            type="text">
+            @if(registerForm.lastname().touched()) {
+                @for (error of registerForm.lastname().errors(); track error.kind) {
+                <span>{{error.message}}</span>
+            }
+        }
+    </div>
+    <div>
+        <label for="firstname">Votre prénom:</label>
+        <input
+            [formField]="registerForm.firstname"
+            placeholder="Votre prénom" 
+            type="text">
+            @if(registerForm.firstname().touched()) {
+                @for (error of registerForm.password().errors(); track error.kind) {
+                <span>{{error.message}}</span>
+            }
+        }
+    </div>
+    <button 
+        [disabled]="registerForm().invalid() || registerForm().submitting()"
+        type="submit">S'inscrire</button>
+</form>

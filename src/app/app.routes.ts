@@ -7,6 +7,7 @@ import { Profile } from './pages/profile/profile';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { authGuardGuard } from './_guards/auth-guard-guard';
 import { adminGuardGuard } from './_guards/admin-guard-guard';
+import { Register } from './auth/register/register';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
     { path: 'buying', component: CarList },
     { path: 'buying/:id', component: ItemPage },
     { path: 'login', component: LoginPage },
+    { path: 'register', component: Register },
     { path: 'profile', component: Profile, canActivate: [authGuardGuard] },
     { path: 'dashboard', component: Dashboard, canActivate: [adminGuardGuard]},
 ];
