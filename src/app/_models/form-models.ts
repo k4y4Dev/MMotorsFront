@@ -3,6 +3,14 @@ export interface LoginFormModel {
     password: string;
 }
 
+export interface RegisterFormModel {
+    username: string;
+    password: string;
+    lastname: string;
+    firstname: string;
+    role: string;
+}
+
 
 export interface CarFormModel {
     name: string;

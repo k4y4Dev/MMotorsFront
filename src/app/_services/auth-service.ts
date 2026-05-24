@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { LoginFormModel } from '../_models/form-models';
+import { LoginFormModel, RegisterFormModel } from '../_models/form-models';
 import { catchError, delay, Observable, of, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApiAuthResponse, User } from '../_models/user';
@@ -17,6 +17,29 @@ export class AuthService {
   readonly isAuthenticated = computed(() => this.currentUser() !== null)
   readonly isAdmin = computed(() => this.currentUser()?.email === 'admin1@gmail.com')
 
+register(registerFormModel: RegisterFormModel): Observable<User> {
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  });
+
+  const body = {
+    email: registerFormModel.username,   // ← vérifie que ton modèle a bien "email" ou "username"
+    password: registerFormModel.password,
+    lastname: registerFormModel.lastname,
+    firstname: registerFormModel.firstname,
+    role: registerFormModel.role,
+  };
+
+  return this.http.post<User>(`http://localhost:8000/api/users`, body, { headers, withCredentials: true })
+    .pipe(
+      tap((response: User) => {
+        this._currentUser.set(response);
+        console.log(this._currentUser());
+        this.router.navigateByUrl('');
+      })
+    );
+}
 
   login (loginFormModel: LoginFormModel): Observable<ApiAuthResponse> {
 
