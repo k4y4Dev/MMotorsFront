@@ -4,8 +4,15 @@ export default defineConfig({
   test: {
     coverage: {
       provider: 'v8', 
-      reporter: ['text', 'lcov'], 
-      reportsDirectory: './coverage' 
+      reporter: ['text', 'lcov', 'html'], 
+      reportsDirectory: './coverage',
+      reportOnFailure: true,
+      thresholds: {
+        statements: 80,
+        branches: 80,
+        functions: 80,
+        lines: 80
+      }
     },
   },
 });

@@ -1,0 +1,58 @@
+
+
+<form (submit)="submitForm($event)">
+    <h2>Login</h2>
+    <div>
+        <label for="name">Marque voiture:</label>
+        <input 
+            [formField]="carForm.name"
+            placeholder="Renault Zoe"
+            type="text"
+        >
+        @if(carForm.name().touched()) {
+            @for (error of carForm.name().errors(); track error.kind) {
+                <span>{{error.message}}</span>
+            }
+        }
+    </div>
+    <div>
+        <label for="price">Prix:</label>
+        <input
+            [formField]="carForm.price"
+            placeholder="car price" 
+            type="number">
+            @if(carForm.price().touched()) {
+                @for (error of carForm.price().errors(); track error.kind) {
+                <span>{{error.message}}</span>
+            }
+        }
+    </div>
+    <div>
+        <label for="km">KM:</label>
+        <input
+            [formField]="carForm.km"
+            placeholder="car KM" 
+            type="number">
+            @if(carForm.km().touched()) {
+                @for (error of carForm.km().errors(); track error.kind) {
+                <span>{{error.message}}</span>
+            }
+        }
+    </div>
+    <div>
+        <label for="price">Image:</label>
+        <input
+            [formField]="carForm.image"
+            placeholder="car image" 
+            type="text">
+            @if(carForm.image().touched()) {
+                @for (error of carForm.image().errors(); track error.kind) {
+                <span>{{error.message}}</span>
+            }
+        }
+    </div>
+    <button 
+        [disabled]="carForm().invalid() || carForm().submitting()"
+        type="submit">{{btnName()}} cette voiture</button>
+
+</form>
