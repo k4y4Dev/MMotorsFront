@@ -13,7 +13,7 @@ export default defineConfig({
       thresholds: {
         lines: 80,
         functions: 80,
-/*         branches: 80, */
+        branches: 80,
         statements: 80,
       },
  
@@ -24,6 +24,7 @@ export default defineConfig({
         '**/*.test.ts',
         '**/main.ts',
         '**/environments/**',
+        '**/*.html'
       ],
     },
   },
