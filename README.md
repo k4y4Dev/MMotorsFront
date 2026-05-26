@@ -49,8 +49,11 @@ Front End --> Angular 21 --> déployer sur Render
 Back End --> Rest API avec Fast Api --> déployer sur fly.io
 BDD --> local --> sqlite
     --> prod --> PostGressql --> fly.io
+Container --> Docker
+CI/CD --> github workflows + Sonarqube
 
 Test Coverage > 80% - Vitest
+coverage --> npm run test:ci
 -----------------------|---------|----------|---------|---------|-------------------
 File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 -----------------------|---------|----------|---------|---------|-------------------
