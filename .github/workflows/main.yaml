@@ -26,10 +26,19 @@ jobs:
 
       - name: Run Tests with Vitest
         run: npm run test:ci
+        
+      - name: Upload coverage report
+        if: always()   
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 7
 
   sonar-analysis:
     name: Sonar Analysis
     if: github.ref == 'refs/heads/main'
+    needs: angular-tests 
     runs-on: ubuntu-24.04
     environment: prod
 
