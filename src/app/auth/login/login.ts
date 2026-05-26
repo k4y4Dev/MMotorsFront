@@ -5,6 +5,7 @@ import {  email, form, FormField, required, schema, submit } from '@angular/form
 import { JsonPipe } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../../_services/auth-service';
+import { RouterLink } from "@angular/router";
 
 export const loginFormSchema = schema<LoginFormModel>((rootPath) => {
       required(
@@ -26,8 +27,9 @@ export const loginFormSchema = schema<LoginFormModel>((rootPath) => {
   imports: [
     ReactiveFormsModule,
     FormField,
-    JsonPipe
-  ],
+    JsonPipe,
+    RouterLink
+],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
