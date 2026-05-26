@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { ICar, ICarResponse } from '../../_models/icar';
 import { Router } from '@angular/router';
 import { DashboardService } from '../../_services/dashboard-service';
@@ -20,6 +20,8 @@ export class Card {
   public urlPath:string = "" 
 
   carData = input.required<ICarResponse | null>()
+
+  _trade = signal<string>('')
 
 
 
@@ -45,6 +47,21 @@ async deleteThisCar(pickedCar: ICarResponse | null) {
         
       }
   }
+
+async changeTrade(idCar: number | undefined, trade: string | undefined) {
+  const newTrade = (trade === "buying") ? "leasing" : "buying";
+  this._trade.set(newTrade);
+
+  try{
+    await firstValueFrom(
+      this.carService.partialUpdateCar(idCar, { trade: newTrade })
+  );
+  } catch (error)  {
+        return console.error();
+        
+      }
+
+}
 /*   indexSlide = input.required<string>()
  */
 

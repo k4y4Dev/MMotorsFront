@@ -94,6 +94,15 @@ export class CarService {
       })
     );
   }
+
+  partialUpdateCar(id_car: number | undefined, carToUpdate: Partial<ICarResponse>) {
+      return this.http.patch<ICarResponse>(`${this.url}/cars/${id_car}`, carToUpdate, { withCredentials: true }).pipe(
+      tap((modifiedCar: ICarResponse) => {
+        // ✅ remplace directement dans la liste
+        this.carsSignal.update(cars => cars.map(c => c.id === id_car ? modifiedCar : c));
+      })
+    );
+  }
 //refacto later
 applyFilters(filters: Partial<FilterFormModel>): void {
   this.activeFilters.set(filters);

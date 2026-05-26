@@ -45,7 +45,7 @@
             placeholder="Votre prénom" 
             type="text">
             @if(registerForm.firstname().touched()) {
-                @for (error of registerForm.password().errors(); track error.kind) {
+                @for (error of registerForm.firstname().errors(); track error.kind) {
                 <span>{{error.message}}</span>
             }
         }

@@ -6,9 +6,13 @@
             <button (click)='editThisCar(carData())' onkeypress='editThisCar(carData())'>Editer</button>
             <br>
             <button (click)='deleteThisCar(carData())' onkeypress='deleteThisCar(carData())'>Supprimer</button>
+            <br>
+            <button (click)='changeTrade(carData()?.id, carData()?.trade)'>Change Trade</button>
 
         }
         <h3>{{carData()?.name}}</h3>
+        <h4>{{carData()?.trade}}</h4>
+
         <ul>
             <li>{{carData()?.price}} $</li>
             <li>{{carData()?.km}} Km</li>

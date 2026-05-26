@@ -3,6 +3,7 @@ export interface ICar {
     price: number,
     km: number,
     image: string
+    trade: string
 
 }
 

@@ -15,7 +15,7 @@ export class AuthService {
   private _currentUser = signal<User | null>(null)
   readonly currentUser = this._currentUser.asReadonly()
   readonly isAuthenticated = computed(() => this.currentUser() !== null)
-  readonly isAdmin = computed(() => this.currentUser()?.email === 'admin1@gmail.com')
+  readonly isAdmin = computed(() => this.currentUser()?.role === 'admin')
 
 register(registerFormModel: RegisterFormModel): Observable<User> {
   const headers = new HttpHeaders({
