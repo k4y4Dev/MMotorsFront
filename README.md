@@ -1,59 +1,94 @@
-# MotorsFront
+MMotors
+MMotors est un concessionnaire automobile qui a décidé d'agrandir son offre en proposant des voitures en leasin en plus de son offre d'achat de voiture initial. Afin de suivre ce renouveau, ils ont décidé de remettre leur application web à neuf et d'offrir leurs service en ligne.
+Projet développé dans le cadre  du projet Bachelor en développement Python
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+Git
+Git est un version controller qui permet de versioner tout projet informatique au fur et à mesure du développement de celui-ci. Cela permet de revenir en arrière en cas d'erreur critique sans prendre le risque de complètement perdre le projet.
+J'ai crée 3 branches principales:
+    -main --> la branche principale à partir de laquelle sera déployer l'application
+    -pre-prod --> branche servant à déployer l'application sur un environnement similaire à la prod, permettant de controller d'éventuels incidents non prévues dû à cet environnement sans impacter la production.
+    -dev --> branche servant à regrouper toutes les noouvelles fonctionnalitè^és au fur et à mesure de l'évolution du projet.
 
-## Development server
+Puis à partir de la branche dev, une branche par fonctionnalités sera développé avant d'être à nouveau merge avec la branche dev:
+    -feature/**
+    -feature/**
+    -...
 
-To start a local development server, run:
+Sous forme de “bullet points”, mettez en évidence votre démarche pour développer une user Story
 
-```bash
-ng serve
-```
+US 
+-Liste fonctionalité
+-EPIC (page d'acceuil) ou US(login) en fonction du volume de la tâche
+-Fragmentation EPIC en US 
+-Chaque US à 1 objectif décrit ainsi: En tant que .../ Je souhaite.../Afin de ... 
+        --> Chaque US doit spécifier tout besoin nécessaire à son commencement (maquette)
+        --> Chaque US possède des critères d'acceptation pour la definir comme done
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+-Une US doit correspondre à la Definition Of Ready (DoR) avant de rentrer dans un sprint
+        --> la DoR est établie au début du projet
 
-## Code scaffolding
+-Cycle sprint pour l'US, Do-Doing-Test
+-Après la phase de Test
+        --> Si correspond à la Définition Of Done (DoD), US done
+        --> US déployer
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+-Nouvelle US, nouveau cycle
 
-```bash
-ng generate component component-name
-```
+Fonctionalités:
+Gestion users:
+-User --> consultation véhicule, création compte, login, Demande d'achat/leasing véhicule/ upload documents
+-Admin --> Gestion véhicule, gestion dossier client
+        
+Véhicules:
+-CRUD véhicule --> Authorisation selon role
+-Pagination véhicule
+-Filtre véhicule
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Stack Technique:
+Front End --> Angular 21 --> déployer sur Render
+Back End --> Rest API avec Fast Api --> déployer sur fly.io
+BDD --> local --> sqlite
+    --> prod --> PostGressql --> fly.io
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Test Coverage > 80% - Vitest
+-----------------------|---------|----------|---------|---------|-------------------
+File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------------|---------|----------|---------|---------|-------------------
+All files              |   94.68 |     87.3 |   86.36 |   94.46 |                   
+ app                   |   94.11 |    72.22 |     100 |     100 |                   
+  app.ts               |   94.11 |    72.22 |     100 |     100 | 18-24             
+ app/_guards           |     100 |      100 |     100 |     100 |                   
+  admin-guard-guard.ts |     100 |      100 |     100 |     100 |                   
+  auth-guard-guard.ts  |     100 |      100 |     100 |     100 |                   
+ app/_services         |   94.11 |    82.75 |   86.84 |    92.3 |                   
+  auth-service.ts      |     100 |    76.92 |     100 |     100 | 15-18             
+  car-service.ts       |     100 |    83.87 |     100 |     100 | 17-24             
+  dashboard-service.ts |   63.63 |    77.77 |      25 |      50 | 14-22             
+  upload-service.ts    |      75 |      100 |       0 |      60 | 14-22             
+ app/auth/login        |     100 |    91.66 |     100 |     100 |                   
+  login.ts             |     100 |    91.66 |     100 |     100 | 41                
+ app/auth/register     |     100 |    91.66 |     100 |     100 |                   
+  register.ts          |     100 |    91.66 |     100 |     100 | 50                
+ app/pages/car-list    |    90.9 |      100 |      50 |   85.71 |                   
+  car-list.ts          |    90.9 |      100 |      50 |   85.71 | 32                
+ app/pages/dashboard   |   85.71 |    81.25 |      50 |    87.5 |                   
+  dashboard.ts         |   85.71 |    81.25 |      50 |    87.5 | 33                
+ app/pages/home-page   |     100 |      100 |     100 |     100 |                   
+  home-page.ts         |     100 |      100 |     100 |     100 |                   
+ app/pages/item-page   |     100 |    91.66 |     100 |     100 |                   
+  item-page.ts         |     100 |    91.66 |     100 |     100 | 18                
+ app/pages/login-page  |     100 |      100 |     100 |     100 |                   
+  login-page.ts        |     100 |      100 |     100 |     100 |                   
+ app/pages/profile     |   88.88 |    77.77 |   85.71 |    90.9 |                   
+  profile.ts           |   88.88 |    77.77 |   85.71 |    90.9 | 52-53             
+ app/parts/car-form    |     100 |       85 |     100 |     100 |                   
+  car-form.ts          |     100 |       85 |     100 |     100 | 43-53             
+ app/parts/card        |     100 |     87.5 |     100 |     100 |                   
+  card.ts              |     100 |     87.5 |     100 |     100 | 22-24             
+ app/parts/filter      |   71.42 |    91.66 |      50 |   66.66 |                   
+  filter.ts            |   71.42 |    91.66 |      50 |   66.66 | 21,29-33          
+ app/parts/navbar      |     100 |      100 |     100 |     100 |                   
+  navbar.ts            |     100 |      100 |     100 |     100 |                   
+ app/parts/pagination  |     100 |    91.66 |     100 |     100 |                   
+  pagination.ts        |     100 |    91.66 |     100 |     100 | 14                
+-----------------------|---------|----------|---------|---------|--------
