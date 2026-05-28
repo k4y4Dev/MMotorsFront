@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UploadService {
   private http = inject(HttpClient);
-  readonly url = 'http://localhost:8000/api';
+  readonly url = 'https://motorsback.fly.dev/api';
 
 
   uploadImage(formData: FormData): Observable<{ url: string }> {

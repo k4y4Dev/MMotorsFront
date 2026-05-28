@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class CarService {
   private http = inject(HttpClient);
   private router = inject(Router)
-  readonly url = 'http://localhost:8000/api';
+  readonly url = 'https://motorsback.fly.dev/api';
 
   // ✅ signal public de la liste
   carsSignal = signal<ICarResponse[]>([]);
