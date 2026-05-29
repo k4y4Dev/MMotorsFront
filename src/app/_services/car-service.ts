@@ -36,8 +36,6 @@ export class CarService {
 
   // ✅ charge la liste et alimente le signal
   loadCars(skip = 0, limit = 10, ) {
-    console.log(this.currentUrl)
-    console.log(this.carListUrl)
     let params = new HttpParams()
       .set('skip', skip)
       .set('limit', limit);
@@ -47,7 +45,7 @@ export class CarService {
     params = this.addFilters(params); // ← applique les filtres si présents
 
     this.http.get<PaginatedCarResponse>(`${this.url}/cars`, {params}).subscribe(paginatedResponse => {
-      console.log(paginatedResponse)
+
       this.carsSignal.set(paginatedResponse.cars);
       this.currentSkip.set(paginatedResponse.skip);
       this.currentLimit.set(paginatedResponse.limit);

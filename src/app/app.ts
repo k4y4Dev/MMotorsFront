@@ -29,7 +29,7 @@ export class App{
   drawerStatus(){
     this.burgerStatus = !this.burgerStatus
     this.burgerIcon = this.burgerStatus ? "fa-xmark": "fa-bars"
-    console.log(this.burgerStatus)
+
 /*     this.burgerStatus?document.body.classList.add('no-scroll'):document.body.classList.remove('no-scroll')
  */
   if (this.burgerStatus) {
