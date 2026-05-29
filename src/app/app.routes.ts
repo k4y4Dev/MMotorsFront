@@ -1,7 +1,23 @@
 import { Routes } from '@angular/router';
 import { HomePage } from './pages/home-page/home-page';
+import { CarList } from './pages/car-list/car-list';
+import { ItemPage } from './pages/item-page/item-page';
+import { LoginPage } from './pages/login-page/login-page';
+import { Profile } from './pages/profile/profile';
+import { Dashboard } from './pages/dashboard/dashboard';
+import { authGuardGuard } from './_guards/auth-guard-guard';
+import { adminGuardGuard } from './_guards/admin-guard-guard';
+import { Register } from './auth/register/register';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomePage },
+    { path: 'leasing', component: CarList },
+    { path: 'leasing/:id', component: ItemPage },
+    { path: 'buying', component: CarList },
+    { path: 'buying/:id', component: ItemPage },
+    { path: 'login', component: LoginPage },
+    { path: 'register', component: Register },
+    { path: 'profile', component: Profile, canActivate: [authGuardGuard] },
+    { path: 'dashboard', component: Dashboard, canActivate: [adminGuardGuard]},
 ];

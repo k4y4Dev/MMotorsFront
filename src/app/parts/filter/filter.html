@@ -1,0 +1,24 @@
+<form>
+  <div>
+    <label>KM: {{ filterFormModel().km }}</label>
+    <input
+      type="range"
+      [value]="filterFormModel().km"
+      min="1000"
+      max="200000"
+      step="1000"
+      (input)="onFilterChange('km', $event)"
+    />
+  </div>
+  <div>
+    <label>Price: {{ filterFormModel().price }}</label>
+    <input
+      type="range"
+      [value]="filterFormModel().price"
+      min="1000"
+      max="200000"
+      step="1000"
+      (input)="onFilterChange('price', $event)"
+    />
+  </div>
+</form>

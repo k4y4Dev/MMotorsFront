@@ -1,0 +1,25 @@
+<div class="paginationBlock">
+    @if (_currentPage() > 1) {
+        <button (click)="changePage(_currentPage() - 1)">Previous</button>
+    }
+    <ul>
+        @if(_currentPage() > 1){
+            <li class="subPages" (click)="changePage(_currentPage() - 1)">
+                {{_currentPage() - 1}}
+            </li>
+        }
+        <li class="mainPage">
+            {{_currentPage()}}
+        </li>
+        @if (hasMorePages()) {
+            <li class="subPages"   (click)="changePage(_currentPage() + 1)">
+                {{_currentPage() + 1}}
+            </li>
+        }
+
+    </ul>
+        @if (hasMorePages()) {
+            <button  (click)="changePage(_currentPage() + 1)">Next</button>
+        }
+
+</div>

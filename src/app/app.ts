@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { Navbar } from './parts/navbar/navbar';
 import { CommonModule } from '@angular/common';
+import { AuthService } from './_services/auth-service';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
+    RouterLink,
     CommonModule,
     Navbar
 ],
@@ -15,8 +17,11 @@ import { CommonModule } from '@angular/common';
 })
 export class App{
 
+  authService = inject(AuthService)
+
   burgerStatus: boolean = false;
   burgerIcon: string = "fa-bars";
+  loginLink = computed(() => this.authService.isAuthenticated()?'profile':'login')
 
 
 

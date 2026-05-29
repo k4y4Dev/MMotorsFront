@@ -1,0 +1,28 @@
+.paginationBlock{
+    display: flex;
+    width: 70%;
+    margin: auto;
+    justify-content: center;
+    gap: 5px;
+}
+ul{
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+li{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.mainPage{
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+.subPages{
+    font-size: 1em;
+}
