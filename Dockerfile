@@ -10,7 +10,7 @@ RUN npm install
 
 COPY . . 
 
-RUN npm run build
+RUN npm run build --configuration=production
 
 FROM nginx:1.29.4-alpine3.23
 

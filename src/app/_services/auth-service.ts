@@ -4,6 +4,8 @@ import { catchError, delay, Observable, of, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApiAuthResponse, User } from '../_models/user';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,7 @@ export class AuthService {
 
   private http = inject(HttpClient);
   private router = inject(Router)
-  readonly url = 'https://motorsback.fly.dev/api';
+  readonly url = environment.apiUrl;
   private _currentUser = signal<User | null>(null)
   readonly currentUser = this._currentUser.asReadonly()
   readonly isAuthenticated = computed(() => this.currentUser() !== null)

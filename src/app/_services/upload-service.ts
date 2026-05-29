@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class UploadService {
   private http = inject(HttpClient);
-  readonly url = 'https://motorsback.fly.dev/api';
+  readonly url = environment.apiUrl;
 
 
   uploadImage(formData: FormData): Observable<{ url: string }> {

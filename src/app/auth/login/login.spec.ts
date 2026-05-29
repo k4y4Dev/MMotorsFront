@@ -3,6 +3,7 @@ import { Login } from './login';
 import { AuthService } from '../../_services/auth-service';
 import { of, throwError } from 'rxjs';
 import { ApiAuthResponse } from '../../_models/user';
+import { provideRouter } from '@angular/router';
 
 const mockApiAuthResponse: ApiAuthResponse = {
   message: 'Login successful',
@@ -27,6 +28,7 @@ describe('Login', () => {
     await TestBed.configureTestingModule({
       imports: [Login],
       providers: [
+        provideRouter([]),
         { provide: AuthService, useValue: authServiceMock },
       ],
     }).compileComponents();
