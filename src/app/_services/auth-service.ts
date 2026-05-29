@@ -4,6 +4,8 @@ import { catchError, delay, Observable, of, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApiAuthResponse, User } from '../_models/user';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +14,7 @@ export class AuthService {
 
   private http = inject(HttpClient);
   private router = inject(Router)
+  readonly url = environment.apiUrl;
   private _currentUser = signal<User | null>(null)
   readonly currentUser = this._currentUser.asReadonly()
   readonly isAuthenticated = computed(() => this.currentUser() !== null)
@@ -31,7 +34,7 @@ register(registerFormModel: RegisterFormModel): Observable<User> {
     role: registerFormModel.role,
   };
 
-  return this.http.post<User>(`http://localhost:8000/api/users`, body, { headers, withCredentials: true })
+  return this.http.post<User>(`${this.url}/users`, body, { headers, withCredentials: true })
     .pipe(
       tap((response: User) => {
         this._currentUser.set(response);
@@ -51,7 +54,7 @@ register(registerFormModel: RegisterFormModel): Observable<User> {
       .set('username', loginFormModel.username)
       .set('password', loginFormModel.password)
 
-    return this.http.post<ApiAuthResponse>(`http://localhost:8000/api/users/token`, body.toString(), { headers, withCredentials: true }
+    return this.http.post<ApiAuthResponse>(`${this.url}/users/token`, body.toString(), { headers, withCredentials: true }
     ).pipe(
         tap((response: ApiAuthResponse) => {
 
@@ -74,7 +77,7 @@ register(registerFormModel: RegisterFormModel): Observable<User> {
 
   checkAuthStatus(): Observable<User | null> {
 
-      return this.http.get<User>(`http://localhost:8000/api/users/me`, { withCredentials: true }).pipe(
+      return this.http.get<User>(`${this.url}/users/me`, { withCredentials: true }).pipe(
         tap(
           res => this._currentUser.set(res)
         ),

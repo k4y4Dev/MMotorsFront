@@ -4,6 +4,8 @@ import { Observable, tap } from 'rxjs';
 import { ICarResponse, PaginatedCarResponse } from '../_models/icar';
 import { CarFormModel, FilterFormModel } from '../_models/form-models';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,7 @@ import { Router } from '@angular/router';
 export class CarService {
   private http = inject(HttpClient);
   private router = inject(Router)
-  readonly url = 'http://localhost:8000/api';
+  readonly url = environment.apiUrl;
 
   // ✅ signal public de la liste
   carsSignal = signal<ICarResponse[]>([]);
