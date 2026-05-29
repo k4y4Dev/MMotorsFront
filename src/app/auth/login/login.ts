@@ -27,7 +27,6 @@ export const loginFormSchema = schema<LoginFormModel>((rootPath) => {
   imports: [
     ReactiveFormsModule,
     FormField,
-    JsonPipe,
     RouterLink
 ],
   templateUrl: './login.html',

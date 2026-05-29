@@ -18,7 +18,7 @@ export class Profile implements OnInit{
     this.uploadService.getImage('55f57436-0f67-40b7-b8c6-3bc6d37c6fde.jpg').subscribe({
       next: (response) => {
         this.tempSignal.set(response)
-        console.log(response)
+
       }
     })
   }

@@ -31,8 +31,7 @@ export const registerFormSchema = schema<RegisterFormModel>((rootPath) => {
 @Component({
   selector: 'app-register',
   imports: [
-    FormField,
-    JsonPipe
+    FormField
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
@@ -59,7 +58,7 @@ export class Register {
     event.preventDefault();
 
     submit(this.registerForm, async (form) => {
-      console.log(form().value())
+  
 
       try {
         await firstValueFrom(this.loginService.register(form().value()))

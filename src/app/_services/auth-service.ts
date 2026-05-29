@@ -38,7 +38,6 @@ register(registerFormModel: RegisterFormModel): Observable<User> {
     .pipe(
       tap((response: User) => {
         this._currentUser.set(response);
-        console.log(this._currentUser());
         this.router.navigateByUrl('');
       })
     );
