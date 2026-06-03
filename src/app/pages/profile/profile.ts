@@ -1,5 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { UploadService } from '../../_services/upload-service';
+import { Router } from '@angular/router';
+import { ICar } from '../../_models/icar';
 
 @Component({
   selector: 'app-profile',
@@ -9,10 +11,24 @@ import { UploadService } from '../../_services/upload-service';
 })
 export class Profile implements OnInit{
   private uploadService = inject(UploadService);
+  private router = inject(Router);
+
+  public selectedCar = signal<ICar | undefined>(undefined);
+  public carOnProcess =  signal<ICar | undefined>(undefined);
   
   imagePreview = signal<string | null>(null);
   isUploading = signal<boolean>(false);
   tempSignal = signal<string | null>(null);
+
+  constructor() {
+    // 👈 On récupère l'état de navigation obligatoirement dans le constructeur
+    const navigation = this.router.currentNavigation();
+    const state = navigation?.extras.state as { carData: ICar };
+    
+    if (state && state.carData) {
+      this.selectedCar.set(state.carData);
+    }
+  }
 
   ngOnInit(): void {
     this.uploadService.getImage('55f57436-0f67-40b7-b8c6-3bc6d37c6fde.jpg').subscribe({
@@ -53,5 +69,15 @@ export class Profile implements OnInit{
         this.isUploading.set(false);
       }
     });
+  }
+
+
+  applicationSubmitter(answer: boolean) {
+    if(!answer){
+      this.selectedCar.set(undefined);
+    }
+
+    this.carOnProcess.set(this.selectedCar())
+    this.selectedCar.set(undefined)
   }
 }

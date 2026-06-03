@@ -3,6 +3,7 @@ import { ICar } from '../../_models/icar';
 import { CarService } from '../../_services/car-service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item-page',
@@ -13,6 +14,7 @@ import { switchMap } from 'rxjs';
 export class ItemPage {
 
   private readonly carService = inject(CarService);
+  private router = inject(Router)
 
   // 1. On reçoit l'ID via l'URL
   public id = input<number>();
@@ -24,4 +26,12 @@ export class ItemPage {
       switchMap(id => this.carService.getCar(id))
     )  
   );
+
+public applyDemand(car: ICar | undefined) {
+  if (!car) return;
+
+  this.router.navigate(['/profile'], {
+    state: { carData: car } 
+  });
+}
 }
