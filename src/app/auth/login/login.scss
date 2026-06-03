@@ -1,4 +1,20 @@
 .registerLink{
     color: purple;
     cursor: pointer;
+    text-align: center;
+}
+
+form{
+    width: 30%;
+    margin: auto;
+}
+form h2{
+    text-align: center;
+}
+form div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
