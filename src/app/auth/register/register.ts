@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../_services/auth-service';
 import { RegisterFormModel } from '../../_models/form-models';
 import { email, form, FormField, required, schema, submit } from '@angular/forms/signals';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 
 export const registerFormSchema = schema<RegisterFormModel>((rootPath) => {
@@ -32,7 +32,7 @@ export const registerFormSchema = schema<RegisterFormModel>((rootPath) => {
   selector: 'app-register',
   imports: [
     FormField
-  ],
+],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
