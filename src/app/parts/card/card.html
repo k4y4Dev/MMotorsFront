@@ -2,7 +2,7 @@
 
     <img src="{{`/assets/${carData()?.image}`}}" alt="Photo d'une berline noire">
     <section>
-        @if(urlPath === '/dashboard') {
+        @if(urlPath === '/dashboard' && editMode()) {
             <button (click)='editThisCar(carData())' onkeypress='editThisCar(carData())'>Editer</button>
             <br>
             <button (click)='deleteThisCar(carData())' onkeypress='deleteThisCar(carData())'>Supprimer</button>

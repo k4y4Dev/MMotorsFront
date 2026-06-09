@@ -1,0 +1,25 @@
+<h3>Dossier de {{caseData()?.lastname}} {{caseData()?.firstname}}</h3>
+<span>Statut du dossier: <strong>{{caseData()?.status}}</strong></span>
+<section>
+    <select (change)="onStatusChange($event)">
+        <option [value]="CaseStatus.PENDING"    [selected]="selectedStatus() === CaseStatus.PENDING">En attente</option>
+        <option [value]="CaseStatus.PROCESSING" [selected]="selectedStatus() === CaseStatus.PROCESSING">Traitement en cours</option>
+        <option [value]="CaseStatus.APPROVED"   [selected]="selectedStatus() === CaseStatus.APPROVED">Accepté</option>
+        <option [value]="CaseStatus.REFUSED"    [selected]="selectedStatus() === CaseStatus.REFUSED">Refusé</option>
+    </select>
+
+    <button
+        (click)="confirmUpdate()"
+        [disabled]="selectedStatus() === caseData()?.status || isUpdating()">
+        {{ isUpdating() ? 'Mise à jour...' : 'Confirmer' }}
+    </button>
+</section>
+
+<section>
+    <h5>Voiture du dossier:</h5>
+    <app-card  [carData]="carData()"  [editMode]="false"></app-card>
+</section>
+<section>
+    <h5>Documents du client:</h5>
+</section>
+
