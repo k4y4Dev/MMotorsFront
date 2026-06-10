@@ -1,16 +1,16 @@
 
 <form (submit)="submitForm($event)">
-    <h2>Login</h2>
     <div>
         <label for="username">Email</label>
         <input 
             [formField]="loginForm.username"
             placeholder="example@smth.com"
             type="email"
+            [class.isWrong]="loginForm.username().invalid() && loginForm.username().touched()"
         >
         @if(loginForm.username().touched()) {
             @for (error of loginForm.username().errors(); track error.kind) {
-                <span>{{error.message}}</span>
+                <span class="inputError">{{error.message}}</span>
             }
         }
     </div>
@@ -19,10 +19,11 @@
         <input
             [formField]="loginForm.password"
             placeholder="yourPassword" 
-            type="password">
+            type="password"
+            [class.isWrong]="loginForm.password().invalid() && loginForm.password().touched()">
             @if(loginForm.password().touched()) {
                 @for (error of loginForm.password().errors(); track error.kind) {
-                <span>{{error.message}}</span>
+                <span class="inputError">{{error.message}}</span>
             }
         }
     </div>

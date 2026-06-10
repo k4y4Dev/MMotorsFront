@@ -6,7 +6,7 @@
 </section>
 <section class="deck">
          @for ( car of cars(); track car.id; let idx = $index) {
-            <app-card [carData]="car"  (click)="navigateToCar(car.id)" #test></app-card>
+            <app-card [carData]="car"  [editMode]="false" (click)="navigateToCar(car.id)" #test></app-card>
         }
         <app-pagination></app-pagination> 
 </section>
