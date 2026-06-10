@@ -1,4 +1,39 @@
 .registerLink{
     color: purple;
     cursor: pointer;
+    text-align: center;
+}
+
+form{
+    width: 30%;
+    margin: auto;
+    background-color: #feffff;
+    color: black;
+    padding: 10px;
+    height: 40vh;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+h2{
+    text-align: center;
+}
+form div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.isWrong{
+    border: 2px solid red;
+}
+
+.inputError{
+    color: red;
+}
+form button{
+    width: 30%;
+    align-self: center;
 }

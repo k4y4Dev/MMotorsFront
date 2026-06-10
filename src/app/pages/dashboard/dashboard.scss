@@ -31,3 +31,40 @@
     text-align: center;
     flex: auto;
 }
+
+.cases {
+    border: 2px solid white;
+}
+.cases img{
+    width: 50%;
+    height: auto;
+    object-fit: fill;
+}
+.cases span {
+    position: relative;
+    left: 98.5%;
+    top: -10px;
+    background-color: teal;
+    color: black;
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.cases ul{
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.cases ul:hover{
+    background-color: #feffff;
+    color: black;
+    cursor: pointer;
+}
+li{
+    list-style: none;
+}

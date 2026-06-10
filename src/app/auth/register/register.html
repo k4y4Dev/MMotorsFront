@@ -1,16 +1,19 @@
 
+
+<h2>Register</h2>
 <form (submit)="submitForm($event)">
-    <h2>Register</h2>
+
     <div>
         <label for="username">Email</label>
         <input 
             [formField]="registerForm.username"
             placeholder="example@smth.com"
             type="email"
+            [class.isWrong]="registerForm.username().invalid() && registerForm.username().touched()"
         >
         @if(registerForm.username().touched()) {
             @for (error of registerForm.username().errors(); track error.kind) {
-                <span>{{error.message}}</span>
+                <span class="inputError">{{error.message}}</span>
             }
         }
     </div>
@@ -19,10 +22,11 @@
         <input
             [formField]="registerForm.password"
             placeholder="yourPassword" 
-            type="password">
+            type="password"
+            [class.isWrong]="registerForm.password().invalid() && registerForm.password().touched()">
             @if(registerForm.password().touched()) {
                 @for (error of registerForm.password().errors(); track error.kind) {
-                <span>{{error.message}}</span>
+                <span class="inputError">{{error.message}}</span>
             }
         }
     </div>
@@ -31,10 +35,12 @@
         <input
             [formField]="registerForm.lastname"
             placeholder="Votre nom de famille" 
-            type="text">
+            type="text"
+            [class.isWrong]="registerForm.lastname().invalid() && registerForm.lastname().touched()"
+            >
             @if(registerForm.lastname().touched()) {
                 @for (error of registerForm.lastname().errors(); track error.kind) {
-                <span>{{error.message}}</span>
+                <span class="inputError">{{error.message}}</span>
             }
         }
     </div>
@@ -43,10 +49,11 @@
         <input
             [formField]="registerForm.firstname"
             placeholder="Votre prénom" 
-            type="text">
+            type="text"
+            [class.isWrong]="registerForm.firstname().invalid() && registerForm.firstname().touched()">
             @if(registerForm.firstname().touched()) {
                 @for (error of registerForm.firstname().errors(); track error.kind) {
-                <span>{{error.message}}</span>
+                <span class="inputError">{{error.message}}</span>
             }
         }
     </div>

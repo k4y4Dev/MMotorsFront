@@ -25,3 +25,10 @@ export interface FilterFormModel{
     trade?: string
 
 }
+
+export enum CaseStatus {
+  PENDING    = 'pending',
+  PROCESSING = 'processing',
+  APPROVED   = 'approved',
+  REFUSED    = 'refused'
+}
