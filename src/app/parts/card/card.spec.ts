@@ -54,21 +54,15 @@ describe('Card', () => {
     component = fixture.componentInstance;
     componentRef = fixture.componentRef;
 
-    // Input required
     componentRef.setInput('carData', mockCar);
+    componentRef.setInput('editMode', false); // ← ajout
     await fixture.whenStable();
   });
 
-  // ──────────────────────────────────────────────
-  // Création
-  // ──────────────────────────────────────────────
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // ──────────────────────────────────────────────
-  // Rendu
-  // ──────────────────────────────────────────────
   describe('rendering', () => {
     it('should display car name', () => {
       fixture.detectChanges();
@@ -102,14 +96,24 @@ describe('Card', () => {
     });
 
     it('should show dashboard buttons when url is "/dashboard"', async () => {
-      routerMock.url = '/dashboard';
+      // Le composant lit router.url dans le constructeur → il faut recréer
+      // le TestBed avec un mock dont l'url est déjà "/dashboard"
+      await TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({
+        imports: [Card],
+        providers: [
+          { provide: Router, useValue: { url: '/dashboard', navigateByUrl: vi.fn() } },
+          { provide: CarService, useValue: carServiceMock },
+          { provide: DashboardService, useValue: dashServiceMock },
+        ],
+      }).compileComponents();
 
-      // Recrée le composant avec la nouvelle URL
       fixture = TestBed.createComponent(Card);
       componentRef = fixture.componentRef;
       componentRef.setInput('carData', mockCar);
-      await fixture.whenStable();
+      componentRef.setInput('editMode', true); // ← doit être true pour afficher les boutons
       fixture.detectChanges();
+      await fixture.whenStable();
 
       const buttons = fixture.nativeElement.querySelectorAll('button');
       expect(buttons.length).toBe(3);
@@ -119,9 +123,6 @@ describe('Card', () => {
     });
   });
 
-  // ──────────────────────────────────────────────
-  // editThisCar()
-  // ──────────────────────────────────────────────
   describe('editThisCar()', () => {
     it('should call dashService.editCar with carData', () => {
       component.editThisCar(mockCar);
@@ -134,9 +135,6 @@ describe('Card', () => {
     });
   });
 
-  // ──────────────────────────────────────────────
-  // deleteThisCar()
-  // ──────────────────────────────────────────────
   describe('deleteThisCar()', () => {
     it('should call carService.deleteThisCar with car id', async () => {
       await component.deleteThisCar(mockCar);
@@ -163,9 +161,6 @@ describe('Card', () => {
     });
   });
 
-  // ──────────────────────────────────────────────
-  // changeTrade()
-  // ──────────────────────────────────────────────
   describe('changeTrade()', () => {
     it('should toggle trade from buying to leasing', async () => {
       await component.changeTrade(1, 'buying');
