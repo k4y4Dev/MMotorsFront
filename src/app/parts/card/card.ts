@@ -20,6 +20,7 @@ export class Card {
   public urlPath:string = "" 
 
   carData = input.required<ICarResponse | null>()
+  editMode = input.required<boolean>()
 
   _trade = signal<string>('')
 

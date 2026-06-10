@@ -11,3 +11,9 @@ export interface ApiAuthResponse {
     user: User;
 }
 
+export interface UserCaseAdmin {
+    email: string;
+    lastname: string;
+    firstname: string;
+}
+

@@ -3,7 +3,7 @@
         <li  (click)='changeMenuTopic("profile")' onkeypress="changeMenuTopic('profile')">Profil</li>
         <li  (click)='changeMenuTopic("addCar")' onkeypress="changeMenuTopic('addCar')">Ajouter une voiture</li>
         <li  (click)='changeMenuTopic("carList")' onkeypress="changeMenuTopic('carList')">Liste voiture</li>
-        <li>?</li>
+        <li  (click)='changeMenuTopic("caseList")' onkeypress="changeMenuTopic('caseList')">Liste dossier client</li>
     </ul>
 </section>
 <section class="dashBody">
@@ -16,7 +16,7 @@
     }
     @if(selectedTopic() == "carList") {
          @for ( car of cars(); track car.id; let idx = $index) {
-            <app-card [carData]="car"  #test></app-card>
+            <app-card [carData]="car" [editMode]="true" #test></app-card>
 <!--             <app-card [carData]="car"  (click)="navigateToCar(car.id)" #test></app-card>-->
 
                     } 
@@ -24,8 +24,42 @@
     }
     @if(selectedTopic() == "edit") {
         <app-car-form [carData]="carToEdit()"></app-car-form>
-        <app-card [carData]="carToEdit()"  #test></app-card>
+        <app-card [carData]="carToEdit()"  [editMode]="true" #test></app-card>
 
+    }
+    @if(selectedTopic() == "caseList") {
+        <h3>Dossiers client</h3>
+       @for (car of casePerCar(); track car.car.id; let idx = $index){
+            <article class="cases">
+            <span (click)="showList(car.car.id)" 
+                  (keypress)="showList(car.car.id)"
+>
+                {{car.pending_count}}
+            </span>
+                <img src="{{`/assets/${car.car.image}`}}" alt="">
+                <h4>{{car.car.name}}</h4>
+
+                @if(openedCarId() === car.car.id){
+                     @for (case of car.cases; track case.case_id; let idx = $index){
+                        <ul (click)="selectThisCase(case, car.car)" >
+                            <li>{{case.case_id}}</li>
+                            <li>{{case.lastname}} {{case.firstname}}</li>
+                            <li>{{case.status}}</li>
+                        </ul>
+                    }
+                }
+
+
+
+
+            </article>
+
+       }
+
+
+    }
+    @if(selectedCase()) {
+        <app-client-case [caseData]="selectedCase()" [carData]="selectedCarCase()"></app-client-case>
     }
 
 </section>

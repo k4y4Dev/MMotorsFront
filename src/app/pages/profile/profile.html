@@ -19,7 +19,26 @@
     </form>
 
 </div>
-<div>
+<!-- <div>
     <h3>{{tempSignal()}}</h3>
     <img  [src]="tempSignal()" alt="test">
-</div>
+</div> -->
+@if (selectedCar()) {
+  <div class="selected-car-info">
+    <h3>Voiture sélectionnée : {{ selectedCar()?.name }}</h3>
+    <p>Prix : {{ selectedCar()?.price }} €</p>
+    <p>Êtes-vous sûr de vouloir déposer un dossier pour cette voiture?</p>
+    <button (click)="applicationSubmitter(true)">Oui</button>
+    <button (click)="applicationSubmitter(false)">Non</button>
+  </div>
+}
+@if (carOnProcess()) {
+    <h3>Dossier déposé pour la voiture : {{ carOnProcess()?.name }}</h3>
+    <p>Type de transaction: {{ carOnProcess()?.trade }}</p>
+    <ul>
+        <li>KM: {{ carOnProcess()?.km }}</li>
+        <li>Prix: {{ carOnProcess()?.price }}</li>
+    </ul>
+} @else {
+  <p>Aucun dossier de voiture en cours.</p>
+}
