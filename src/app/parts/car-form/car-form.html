@@ -8,6 +8,7 @@
             [formField]="carForm.name"
             placeholder="Renault Zoe"
             type="text"
+            id="name"
         >
         @if(carForm.name().touched()) {
             @for (error of carForm.name().errors(); track error.kind) {
@@ -20,7 +21,9 @@
         <input
             [formField]="carForm.price"
             placeholder="car price" 
-            type="number">
+            type="number"
+            id="price"
+            >
             @if(carForm.price().touched()) {
                 @for (error of carForm.price().errors(); track error.kind) {
                 <span>{{error.message}}</span>
@@ -32,7 +35,9 @@
         <input
             [formField]="carForm.km"
             placeholder="car KM" 
-            type="number">
+            type="number"
+            id="km"
+            >
             @if(carForm.km().touched()) {
                 @for (error of carForm.km().errors(); track error.kind) {
                 <span>{{error.message}}</span>
@@ -40,11 +45,13 @@
         }
     </div>
     <div>
-        <label for="price">Image:</label>
+        <label for="image">Image:</label>
         <input
             [formField]="carForm.image"
             placeholder="car image" 
-            type="text">
+            type="text"
+            id="image"
+            >
             @if(carForm.image().touched()) {
                 @for (error of carForm.image().errors(); track error.kind) {
                 <span>{{error.message}}</span>

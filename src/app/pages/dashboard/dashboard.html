@@ -1,9 +1,9 @@
 <section class="sidebar">
     <ul>
-        <li  (click)='changeMenuTopic("profile")' onkeypress="changeMenuTopic('profile')">Profil</li>
-        <li  (click)='changeMenuTopic("addCar")' onkeypress="changeMenuTopic('addCar')">Ajouter une voiture</li>
-        <li  (click)='changeMenuTopic("carList")' onkeypress="changeMenuTopic('carList')">Liste voiture</li>
-        <li  (click)='changeMenuTopic("caseList")' onkeypress="changeMenuTopic('caseList')">Liste dossier client</li>
+        <li  (click)='changeMenuTopic("profile")' onkeypress="changeMenuTopic('profile')" role="button">Profil</li>
+        <li  (click)='changeMenuTopic("addCar")' onkeypress="changeMenuTopic('addCar')" role="button">Ajouter une voiture</li>
+        <li  (click)='changeMenuTopic("carList")' onkeypress="changeMenuTopic('carList')" role="button">Liste voiture</li>
+        <li  (click)='changeMenuTopic("caseList")' onkeypress="changeMenuTopic('caseList')" role="button">Liste dossier client</li>
     </ul>
 </section>
 <section class="dashBody">
@@ -41,7 +41,7 @@
 
                 @if(openedCarId() === car.car.id){
                      @for (case of car.cases; track case.case_id; let idx = $index){
-                        <ul (click)="selectThisCase(case, car.car)" >
+                        <ul (click)="selectThisCase(case, car.car)" onkeypress="selectThisCase()" role="button">
                             <li>{{case.case_id}}</li>
                             <li>{{case.lastname}} {{case.firstname}}</li>
                             <li>{{case.status}}</li>

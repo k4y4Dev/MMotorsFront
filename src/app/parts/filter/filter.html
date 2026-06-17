@@ -1,6 +1,6 @@
 <form>
   <div>
-    <label>KM: {{ filterFormModel().km }}</label>
+    <label  for="km">KM: {{ filterFormModel().km }}</label>
     <input
       type="range"
       [value]="filterFormModel().km"
@@ -8,10 +8,11 @@
       max="200000"
       step="1000"
       (input)="onFilterChange('km', $event)"
+      id="km"
     />
   </div>
   <div>
-    <label>Price: {{ filterFormModel().price }}</label>
+    <label  for="price">Price: {{ filterFormModel().price }}</label>
     <input
       type="range"
       [value]="filterFormModel().price"
@@ -19,6 +20,7 @@
       max="200000"
       step="1000"
       (input)="onFilterChange('price', $event)"
+      id="price"
     />
   </div>
 </form>

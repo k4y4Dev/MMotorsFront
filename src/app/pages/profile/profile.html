@@ -3,11 +3,12 @@
     @if(!docUrls()['doc1']){
 
         <form >
-            <label for="image">Document 1:</label>
+            <label for="doc1">Document 1:</label>
             <input 
                 type="file" 
                 accept="image/jpeg, image/png, image/webp"
                 (change)="presetImage($event, 'doc1')"
+                id="doc1"
                 #fileUploader
                 >
 
@@ -27,11 +28,12 @@
     }
     @if(!docUrls()['doc2']){
         <form >
-            <label for="image">Document 2:</label>
+            <label for="doc2">Document 2:</label>
             <input 
                 type="file" 
                 accept="image/jpeg, image/png, image/webp"
                 (change)="presetImage($event, 'doc2')"
+                id="doc2"
                 #fileUploader
                 >
 
@@ -50,11 +52,12 @@
     }
     @if(!docUrls()['doc3']){
             <form >
-        <label for="image">Document 3:</label>
+        <label for="doc3">Document 3:</label>
         <input 
             type="file" 
             accept="image/jpeg, image/png, image/webp"
             (change)="presetImage($event, 'doc3')"
+            id="doc3"
             #fileUploader
             >
         
