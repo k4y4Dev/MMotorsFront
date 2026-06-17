@@ -76,7 +76,10 @@ export class Profile implements OnInit{
       }
       });
 
-      (this.caseService._activeCase())?this.profileService.unsetSelectedCar():''
+      if(this.caseService._activeCase()) {
+        this.profileService.unsetSelectedCar()
+      }
+
 
         this.authService.checkAuthStatus().pipe(
           switchMap(user => {

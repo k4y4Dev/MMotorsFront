@@ -7,6 +7,7 @@
             placeholder="example@smth.com"
             type="email"
             [class.isWrong]="loginForm.username().invalid() && loginForm.username().touched()"
+            id="username"
         >
         @if(loginForm.username().touched()) {
             @for (error of loginForm.username().errors(); track error.kind) {
@@ -20,7 +21,9 @@
             [formField]="loginForm.password"
             placeholder="yourPassword" 
             type="password"
-            [class.isWrong]="loginForm.password().invalid() && loginForm.password().touched()">
+            [class.isWrong]="loginForm.password().invalid() && loginForm.password().touched()"
+            id="password"
+            >
             @if(loginForm.password().touched()) {
                 @for (error of loginForm.password().errors(); track error.kind) {
                 <span class="inputError">{{error.message}}</span>

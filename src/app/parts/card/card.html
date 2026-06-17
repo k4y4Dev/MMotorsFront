@@ -1,6 +1,6 @@
 <article>
 
-    <img src="{{`/assets/${carData()?.image}`}}" alt="Photo d'une berline noire">
+    <img src="{{`/assets/${carData()?.image}`}}" alt="Berline noire">
     <section>
         @if(urlPath === '/dashboard' && editMode()) {
             <button (click)='editThisCar(carData())' onkeypress='editThisCar(carData())'>Editer</button>
