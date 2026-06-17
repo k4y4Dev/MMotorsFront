@@ -6,6 +6,7 @@ import { ComponentRef } from '@angular/core';
 import { ClientCase } from './client-case';
 import { CaseManagementService } from '../../_services/case-management-service';
 import { CaseStatus } from '../../_models/form-models';
+import { of } from 'rxjs';
 
 describe('ClientCase', () => {
   let component: ClientCase;
@@ -13,7 +14,10 @@ describe('ClientCase', () => {
   let componentRef: ComponentRef<ClientCase>;
 
   const caseManagementServiceMock = {
-    caseStatusPatcher: vi.fn().mockReturnValue({ subscribe: vi.fn() }),
+    caseStatusPatcher: vi.fn().mockReturnValue(of({}))
+  };
+  const uploadServiceMock = {
+    getImage: vi.fn().mockReturnValue(of('https://fake-url.com/doc.jpg'))
   };
 
   beforeEach(async () => {
@@ -56,4 +60,27 @@ describe('ClientCase', () => {
       CaseStatus.PENDING
     );
   });
+  it('should initialize and load docs', () => {
+  fixture.componentRef.setInput('caseData', {
+    case_id: 1,
+    status: 'PENDING',
+    email: 'test@test.com',
+    doc_links: [
+      { doc_type: 'doc1', doc_url: 'file1.jpg' }
+    ]
+  });
+
+  fixture.componentRef.setInput('carData', {
+    id: 1,
+    name: 'Tesla',
+    price: 1000,
+    km: 100,
+    image: 'x.jpg',
+    trade: 'buy'
+  });
+
+  fixture.detectChanges();
+
+});
+  
 });

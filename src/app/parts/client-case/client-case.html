@@ -20,6 +20,25 @@
     <app-card  [carData]="carData()"  [editMode]="false"></app-card>
 </section>
 <section>
-    <h5>Documents du client:</h5>
+    <h3>Documents du client:</h3>
+    <h5>Document 1:</h5>
+    @if (docUrls()['doc1']) {
+        <img  [src]="docUrls()['doc1']" alt="test">
+    } @else {
+        <p>Document absent.</p>
+    }
+
+    <h5>Document 2:</h5>
+    @if (docUrls()['doc2']) {
+        <img  [src]="docUrls()['doc2']" alt="test">
+    } @else {
+        <p>Document absent.</p>
+    }
+    <h5>Document 3:</h5>
+    @if (docUrls()['doc3']) {
+        <img  [src]="docUrls()['doc3']" alt="test">
+    } @else {
+        <p>Document absent.</p>
+    }
 </section>
 

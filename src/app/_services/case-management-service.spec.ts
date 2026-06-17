@@ -6,8 +6,17 @@ import { CaseManagementService } from './case-management-service';
 import { environment } from '../../environments/environment';
 import { CarCaseSummary, ActiveCaseResponse } from '../_models/case-application-model';
 import { CaseStatus } from '../_models/form-models';
+import { DocLink } from '../_models/doc-link-model';
 
 const baseUrl = environment.apiUrl;
+
+const mockDocLink = {
+  id: 1,
+  user_id: 42,
+  doc_type: 'doc1',
+  doc_url: 'https://s3.example.com/doc1.pdf',
+  created_at: new Date('2025-01-01'),
+};
 
 const mockCar = {
   id: 10,
@@ -23,6 +32,7 @@ const mockActiveCase: ActiveCaseResponse = {
   user_id: 42,
   car: mockCar,
   status: CaseStatus.PENDING,
+  doc_links: [mockDocLink],
   created_at: new Date("2025-01-01"),
   updated_at: new Date("2025-01-02"),
 };
@@ -38,6 +48,7 @@ const mockCases: CarCaseSummary[] = [
         lastname: 'Doe',
         firstname: 'John',
         status: CaseStatus.PENDING,
+        doc_links: [mockDocLink],
         created_at: new Date('2025-01-01'),
       },
     ],

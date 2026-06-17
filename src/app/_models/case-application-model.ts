@@ -1,3 +1,4 @@
+import { DocLink } from "./doc-link-model"
 import { ICarResponse } from "./icar"
 import { UserCaseAdmin } from "./user"
 
@@ -7,6 +8,7 @@ export interface ActiveCaseResponse {
     car: ICarResponse,
     status: string,
     created_at: Date,
+    doc_links: [DocLink],
     updated_at: Date
 
 }
@@ -27,6 +29,7 @@ export interface CaseUserSummary {
     lastname: string,
     firstname: string,
     status: string,
+    doc_links: [DocLink],
     created_at: Date
 }
 
