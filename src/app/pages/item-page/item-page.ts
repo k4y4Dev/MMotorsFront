@@ -5,6 +5,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { CaseManagementService } from '../../_services/case-management-service';
+import { ProfileService } from '../../_services/profile-service';
 
 @Component({
   selector: 'app-item-page',
@@ -14,6 +15,7 @@ import { CaseManagementService } from '../../_services/case-management-service';
 })
 export class ItemPage implements OnInit{
 
+  private  profileService = inject(ProfileService);
   private readonly carService = inject(CarService);
   private readonly caseService = inject(CaseManagementService);
   private router = inject(Router)
@@ -32,13 +34,19 @@ export class ItemPage implements OnInit{
 
 ngOnInit(): void {
         this.caseService.checkActiveCase().subscribe();
+
 }
 
 public applyDemand(car: ICarResponse | undefined) {
   if (!car) return;
+  if (this.caseIsActive()){
+    alert("Vous avez déjà un contrat en cours de traitement. Pour pluis d'information, veuillez contacter l'administrateur.")
+    return
+  } ;
 
-  this.router.navigate(['/profile'], {
-    state: { carData: car } 
-  });
+
+  this.profileService.setSelectedCar(car)
+
+  this.router.navigate(['/profile']);
 }
 }

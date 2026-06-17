@@ -24,7 +24,7 @@ export class UploadService {
 }
 
 /*   getImage(filename: string): Observable<{ url: string }> {*/  
-  getImage(filename: string | null, normalUserEmail:string = "", doc_type:string = "doc1"): Observable<string> {
+  getImage(filename: string | null,  doc_type:string = "doc1", normalUserEmail:string = ""): Observable<string> {
     let params = new HttpParams()
       .set('folderName', "documents")
       .set('normal_user_email', normalUserEmail)
