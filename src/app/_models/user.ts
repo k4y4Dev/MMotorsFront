@@ -20,7 +20,7 @@ export interface UserCaseAdmin {
 }
 
 export interface UserProfile extends User {
-    id: number,
-    doc_links: [DocLink],
+    id?: number,
+    doc_links?: [DocLink],
 }
 

@@ -12,11 +12,22 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { AuthService } from '../../_services/auth-service';
 import { UploadService } from '../../_services/upload-service';
 import { CaseManagementService } from '../../_services/case-management-service';
+import { ICarResponse } from '../../_models/icar';
+import { ProfileService } from '../../_services/profile-service';
 
 describe('Profile', () => {
   let component: Profile;
   let fixture: ComponentFixture<Profile>;
 
+  const authServiceMock = {
+    isAuthenticated: signal(false),
+    checkAuthStatus: vi.fn().mockReturnValue(
+      of({
+        id: 1,
+        doc_links: []
+      })
+    )
+  };
   const uploadServiceMock = {
     getImage: vi.fn(),
     uploadImage: vi.fn(),
@@ -47,7 +58,19 @@ describe('Profile', () => {
     component.uploadImage(uploadEvent, docType);
   };
 
+const profileServiceMock = {
+  _selectedCar: signal<ICarResponse | undefined>(undefined),
+
+  setSelectedCar: vi.fn((car: ICarResponse) => {
+    profileServiceMock._selectedCar.set(car);
+  }),
+
+  unsetSelectedCar: vi.fn(() => {
+    profileServiceMock._selectedCar.set(undefined);
+  }),
+};
   beforeEach(async () => {
+    vi.clearAllMocks();
     uploadServiceMock.getImage.mockReturnValue(of('https://fake-image-url.com/test.jpg'));
     uploadServiceMock.uploadImage.mockReturnValue(of({ url: 'https://fake-upload-url.com/image.jpg' }));
     caseServiceMock.checkActiveCase.mockReturnValue(of(null));
@@ -58,9 +81,10 @@ describe('Profile', () => {
         provideRouter([]),
         provideHttpClient(),
         provideHttpClientTesting(),
-        { provide: AuthService, useValue: { isAuthenticated: signal(false) } },
+        { provide: AuthService, useValue: authServiceMock },
         { provide: UploadService, useValue: uploadServiceMock },
         { provide: CaseManagementService, useValue: caseServiceMock },
+        {provide: ProfileService, useValue: profileServiceMock}
       ],
     }).compileComponents();
 
@@ -112,19 +136,19 @@ describe('Profile', () => {
   // ─────────────────────────────────────────────
   describe('applicationSubmitter()', () => {
     it('should clear selectedCar when answer is false', () => {
-      component.selectedCar.set({ id: 1, name: 'Tesla', price: 35000, km: 1000, image: 'x.jpg', trade: 'buying' });
+      profileServiceMock._selectedCar.set({ id: 1, name: 'Tesla', price: 35000, km: 1000, image: 'x.jpg', trade: 'buying' });
       component.applicationSubmitter(false);
       expect(component.selectedCar()).toBeUndefined();
     });
 
     it('should call caseApplicationApplier when answer is true', () => {
-      component.selectedCar.set({ id: 1, name: 'Tesla', price: 35000, km: 1000, image: 'x.jpg', trade: 'buying' });
+      profileServiceMock._selectedCar.set({ id: 1, name: 'Tesla', price: 35000, km: 1000, image: 'x.jpg', trade: 'buying' });
       component.applicationSubmitter(true);
       expect(caseServiceMock.caseApplicationApplier).toHaveBeenCalledWith(1);
     });
 
     it('should clear selectedCar after submitting', () => {
-      component.selectedCar.set({ id: 1, name: 'Tesla', price: 35000, km: 1000, image: 'x.jpg', trade: 'buying' });
+      profileServiceMock._selectedCar.set({ id: 1, name: 'Tesla', price: 35000, km: 1000, image: 'x.jpg', trade: 'buying' });
       component.applicationSubmitter(true);
       expect(component.selectedCar()).toBeUndefined();
     });
