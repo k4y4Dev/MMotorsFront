@@ -4,7 +4,13 @@
             <i class="fa-solid {{burgerIcon}} fa-2xl" style="color: rgb(236, 234, 241);"></i>
         </span>
         <a href=""><img src="assets/logo_v1.png" alt="logo MMotors" ></a>
-        <span><a  routerLink="/{{loginLink()}}">{{loginLink()}}</a></span>
+        <div class="loginLinks">
+            @if(this.authService.isAuthenticated()) {
+                <span ><a  (click)="logout()">Logout</a></span>
+            }
+            <span><a  routerLink="/{{loginLink()}}">{{loginLink() | titlecase}}</a></span>
+        </div>
+
     </section>
     @if (burgerStatus) {
       <div class="backdrop"  aria-hidden="true" (click)="drawerStatus()" onkeypress="drawerStatus()"></div>

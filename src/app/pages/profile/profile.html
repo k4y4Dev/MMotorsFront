@@ -1,28 +1,105 @@
-<p>profile works!</p>
+<h2>{{userProfile()?.lastname}} {{userProfile()?.firstname}}</h2>
 <div>
-    <form (submit)="uploadImage($event)">
-            <label for="image">Image:</label>
+    @if(!docUrls()['doc1']){
+
+        <form >
+            <label for="image">Document 1:</label>
+            <input 
+                type="file" 
+                accept="image/jpeg, image/png, image/webp"
+                (change)="presetImage($event, 'doc1')"
+                #fileUploader
+                >
+
+            <!-- Preview de l'image -->
+            @if(imagePreview1()) {
+                <img [src]="imagePreview1()" alt="preview" style="width: 200px">
+            }
+            <button 
+                [disabled]="isUploading()"
+                type="submit"
+                (click)="uploadImage($event, 'doc1')"
+                >
+                {{ isUploading() ? 'Upload en cours...' : 'Ajouter un document' }}
+            </button>
+        </form>
+
+    }
+    @if(!docUrls()['doc2']){
+        <form >
+            <label for="image">Document 2:</label>
+            <input 
+                type="file" 
+                accept="image/jpeg, image/png, image/webp"
+                (change)="presetImage($event, 'doc2')"
+                #fileUploader
+                >
+
+            <!-- Preview de l'image -->
+            @if(imagePreview2()) {
+                <img [src]="imagePreview2()" alt="preview" style="width: 200px">
+            }
+            <button 
+                [disabled]="isUploading()"
+                type="submit"
+                (click)="uploadImage($event, 'doc2')"
+                >
+                {{ isUploading() ? 'Upload en cours...' : 'Ajouter un document' }}
+            </button>
+        </form>
+    }
+    @if(!docUrls()['doc3']){
+            <form >
+        <label for="image">Document 3:</label>
         <input 
             type="file" 
             accept="image/jpeg, image/png, image/webp"
-            (change)="uploadImage($event)">
+            (change)="presetImage($event, 'doc3')"
+            #fileUploader
+            >
         
         <!-- Preview de l'image -->
-        @if(imagePreview()) {
-            <img [src]="imagePreview()" alt="preview" style="width: 200px">
+        @if(imagePreview3()) {
+            <img [src]="imagePreview3()" alt="preview" style="width: 200px">
         }
         <button 
             [disabled]="isUploading()"
-            type="submit">
+            type="submit"
+            (click)="uploadImage($event, 'doc3')"
+            >
             {{ isUploading() ? 'Upload en cours...' : 'Ajouter un document' }}
         </button>
     </form>
 
+    }
+
+
+
+
 </div>
-<!-- <div>
-    <h3>{{tempSignal()}}</h3>
-    <img  [src]="tempSignal()" alt="test">
-</div> -->
+<section>
+    <h3>Documents du client:</h3>
+    <h5>Document 1:</h5>
+    @if (docUrls()['doc1']) {
+        <img  [src]="docUrls()['doc1']" alt="test">
+    } @else {
+        <p>Document absent.</p>
+    }
+
+    <h5>Document 2:</h5>
+    @if (docUrls()['doc2']) {
+        <img  [src]="docUrls()['doc2']" alt="test">
+    } @else {
+        <p>Document absent.</p>
+    }
+    <h5>Document 3:</h5>
+    @if (docUrls()['doc3']) {
+        <img  [src]="docUrls()['doc3']" alt="test">
+    } @else {
+        <p>Document absent.</p>
+    }
+</section>
+
 @if (selectedCar()) {
   <div class="selected-car-info">
     <h3>Voiture sélectionnée : {{ selectedCar()?.name }}</h3>

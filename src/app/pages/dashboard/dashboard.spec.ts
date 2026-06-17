@@ -12,7 +12,16 @@ import { DashboardService } from '../../_services/dashboard-service';
 import { CaseManagementService } from '../../_services/case-management-service';
 import { ICarResponse } from '../../_models/icar';
 import { CarCaseSummary, CaseUserSummary } from '../../_models/case-application-model';
+import { DocLink } from '../../_models/doc-link-model';
 import { environment } from '../../../environments/environment';
+
+const mockDocLink = {
+  id: 1,
+  user_id: 42,
+  doc_type: 'doc1',
+  doc_url: 'https://s3.example.com/doc1.pdf',
+  created_at: new Date('2025-01-01'),
+};
 
 const mockCar: ICarResponse = {
   id: 1, name: 'Tesla', price: 35000, km: 15000, image: 'tesla.jpg', trade: 'buying',
@@ -24,6 +33,7 @@ const mockCase: CaseUserSummary = {
   lastname: 'Doe',
   firstname: 'John',
   status: 'PENDING',
+  doc_links: [mockDocLink],
   created_at: new Date('2025-01-01'),
 };
 
