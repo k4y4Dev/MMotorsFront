@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Navbar } from './parts/navbar/navbar';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { AuthService } from './_services/auth-service';
 
 @Component({
@@ -41,6 +41,10 @@ export class App{
       document.body.classList.remove('no-scroll');
     }, 250); 
   }
+  }
+
+  logout() {
+    this.authService.logout().subscribe();
   }
 
 }

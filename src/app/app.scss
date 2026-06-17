@@ -21,14 +21,23 @@ header section:first-child,main,footer{
     left: 50px;
 }
 
-.loginLine span:last-child{
-    margin-left: auto;
+.loginLine div:last-child span a{
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.loginLine div:last-child span a:hover{
+    cursor: pointer;
+    color: #55BA22;
 
 }
 
-.loginLine span:last-child:hover{
-    cursor: pointer;
-    color: #55BA22;
+.loginLine div:last-child{
+    margin-left: auto;
+    display: flex;
+    gap: 30px;
 }
 
 .navbarDrawer{

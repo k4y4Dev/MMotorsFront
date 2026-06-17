@@ -2,7 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { LoginFormModel, RegisterFormModel } from '../_models/form-models';
 import { catchError, delay, Observable, of, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ApiAuthResponse, User } from '../_models/user';
+import { ApiAuthResponse, User, UserProfile } from '../_models/user';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
@@ -15,10 +15,12 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router)
   readonly url = environment.apiUrl;
-  private _currentUser = signal<User | null>(null)
+  private _currentUser = signal<UserProfile | null>(null)
   readonly currentUser = this._currentUser.asReadonly()
   readonly isAuthenticated = computed(() => this.currentUser() !== null)
   readonly isAdmin = computed(() => this.currentUser()?.role === 'admin')
+
+  userProfile = signal<UserProfile | null>(null)
 
 register(registerFormModel: RegisterFormModel): Observable<User> {
   const headers = new HttpHeaders({
@@ -34,9 +36,9 @@ register(registerFormModel: RegisterFormModel): Observable<User> {
     role: registerFormModel.role,
   };
 
-  return this.http.post<User>(`${this.url}/users`, body, { headers, withCredentials: true })
+  return this.http.post<UserProfile>(`${this.url}/users`, body, { headers, withCredentials: true })
     .pipe(
-      tap((response: User) => {
+      tap((response: UserProfile) => {
         this._currentUser.set(response);
         this.router.navigateByUrl('');
       })
@@ -68,20 +70,35 @@ register(registerFormModel: RegisterFormModel): Observable<User> {
 /*     return of(true).pipe(delay(4000)) */
     }
 
-  logout(): void {
-    //To develop ==> destruct cookie BE side
-    this._currentUser.set(null);
-    this.router.navigateByUrl("/");
+  logout(): Observable<any> {
+      this._currentUser.set(null);
+      this.router.navigateByUrl("/");
+      return this.http.post(`${this.url}/users/logout`, {}, {
+        withCredentials: true
+    });
+
   }
 
-  checkAuthStatus(): Observable<User | null> {
+  checkAuthStatus(): Observable<UserProfile | null> {
 
-      return this.http.get<User>(`${this.url}/users/me`, { withCredentials: true }).pipe(
+      return this.http.get<UserProfile>(`${this.url}/users/me`, { withCredentials: true }).pipe(
         tap(
           res => this._currentUser.set(res)
         ),
         catchError(() => {
           this._currentUser.set(null);
+          return of(null);
+        })
+      );
+  }
+
+  getUser(user_id: number | undefined): Observable<UserProfile | null> {
+    return this.http.get<UserProfile>(`${this.url}/users/${user_id}`, { withCredentials: true }).pipe(
+        tap(
+          res => this.userProfile.set(res)
+        ),
+        catchError(() => {
+          this.userProfile.set(null);
           return of(null);
         })
       );
