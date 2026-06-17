@@ -10,6 +10,7 @@
             placeholder="example@smth.com"
             type="email"
             [class.isWrong]="registerForm.username().invalid() && registerForm.username().touched()"
+            id="username"
         >
         @if(registerForm.username().touched()) {
             @for (error of registerForm.username().errors(); track error.kind) {
@@ -23,7 +24,9 @@
             [formField]="registerForm.password"
             placeholder="yourPassword" 
             type="password"
-            [class.isWrong]="registerForm.password().invalid() && registerForm.password().touched()">
+            [class.isWrong]="registerForm.password().invalid() && registerForm.password().touched()"
+            id="password"
+            >
             @if(registerForm.password().touched()) {
                 @for (error of registerForm.password().errors(); track error.kind) {
                 <span class="inputError">{{error.message}}</span>
@@ -37,6 +40,7 @@
             placeholder="Votre nom de famille" 
             type="text"
             [class.isWrong]="registerForm.lastname().invalid() && registerForm.lastname().touched()"
+            id="lastname"
             >
             @if(registerForm.lastname().touched()) {
                 @for (error of registerForm.lastname().errors(); track error.kind) {
@@ -50,7 +54,9 @@
             [formField]="registerForm.firstname"
             placeholder="Votre prénom" 
             type="text"
-            [class.isWrong]="registerForm.firstname().invalid() && registerForm.firstname().touched()">
+            [class.isWrong]="registerForm.firstname().invalid() && registerForm.firstname().touched()"
+            id="firstname"
+            >
             @if(registerForm.firstname().touched()) {
                 @for (error of registerForm.firstname().errors(); track error.kind) {
                 <span class="inputError">{{error.message}}</span>
