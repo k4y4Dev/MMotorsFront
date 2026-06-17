@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, Signal, signal, ViewChild } from '@angular/core';
 import { UploadService } from '../../_services/upload-service';
 import { Router } from '@angular/router';
 import { ICar, ICarResponse } from '../../_models/icar';
@@ -13,6 +13,8 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './profile.scss',
 })
 export class Profile implements OnInit{
+  @ViewChild('fileUploader') fileUploader!:ElementRef;
+
   private uploadService = inject(UploadService);
   private caseService = inject(CaseManagementService);
   private router = inject(Router);
@@ -21,9 +23,26 @@ export class Profile implements OnInit{
   public carOnProcess =  signal<ICarResponse | undefined>(undefined);
   public activeCase = signal<ActiveCaseResponse | null>(null);
   
-  imagePreview = signal<string | null>(null);
+  imagePreview1 = signal<string | null>(null);
+  imagePreview2 = signal<string | null>(null);
+  imagePreview3 = signal<string | null>(null);
+  imagePreviews = {
+    doc1: this.imagePreview1,
+    doc2: this.imagePreview2,
+    doc3: this.imagePreview3,
+  };
+
   isUploading = signal<boolean>(false);
   tempSignal = signal<string | null>(null);
+
+  private imageFile1 = signal<File | null>(null)
+  private imageFile2 = signal<File | null>(null)
+  private imageFile3 = signal<File | null>(null)
+  private imageFiles = {
+    doc1: this.imageFile1,
+    doc2: this.imageFile2,
+    doc3: this.imageFile3,
+  };
 
   constructor() {
     // 👈 On récupère l'état de navigation obligatoirement dans le constructeur
@@ -36,7 +55,7 @@ export class Profile implements OnInit{
   }
 
   ngOnInit(): void {
-    this.uploadService.getImage('55f57436-0f67-40b7-b8c6-3bc6d37c6fde.jpg').subscribe({
+    this.uploadService.getImage('3490fd91-34f5-4c9d-bc94-86805d005a21.jpg').subscribe({
       next: (response) => {
         this.tempSignal.set(response)
 
@@ -53,39 +72,51 @@ export class Profile implements OnInit{
 
   }
 
-  uploadImage(event: Event) {
+  presetImage(event: Event,  docType: 'doc1' | 'doc2' | 'doc3') {
     
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
+    this.imageFiles[docType].set(file);
+
     // Preview locale immédiate
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagePreview.set(reader.result as string);
+      
+      this.imagePreviews[docType].set(reader.result as string);
     };
     reader.readAsDataURL(file);
+
+  }
+
+  uploadImage(event: Event, docType: 'doc1' | 'doc2' | 'doc3') {
+    event.preventDefault()
+        
+    const file = this.imageFiles[docType]();
+    if (!file) return;
 
     // Upload vers S3 via FastAPI
     const formData = new FormData();
     formData.append('file', file);
 
-    this.isUploading.set(true);
-    this.uploadService.uploadImage(formData).subscribe({
-      next: (response) => {
-        // ← on stocke l'url S3 dans le formulaire
-        /* this.uploadService.update(car => ({ ...car, image: response.url })); */
-        this.tempSignal.set(response.url)
-
-        this.isUploading.set(false);
-      },
-      error: (err) => {
-        console.error(err);
-        this.isUploading.set(false);
-      }
-    });
+     this.isUploading.set(true);
+     this.uploadService.uploadImage(docType ,formData).subscribe({
+       next: (response) => {
+         // ← on stocke l'url S3 dans le formulaire
+         /* this.uploadService.update(car => ({ ...car, image: response.url })); */
+         this.tempSignal.set(response.url)
+ 
+         this.isUploading.set(false);
+         this.imageFiles[docType].set(null)
+         this.imagePreviews[docType].set(null)
+         this.fileUploader.nativeElement.value = null
+       },
+       error: (err) => {
+         console.error(err);
+         this.isUploading.set(false);
+       }
+     });
   }
-
-
 
   applicationSubmitter(answer: boolean) {
     if(!answer){

@@ -1,28 +1,74 @@
 <p>profile works!</p>
 <div>
-    <form (submit)="uploadImage($event)">
-            <label for="image">Image:</label>
+    <form >
+        <label for="image">Document 1:</label>
         <input 
             type="file" 
             accept="image/jpeg, image/png, image/webp"
-            (change)="uploadImage($event)">
+            (change)="presetImage($event, 'doc1')"
+            #fileUploader
+            >
         
         <!-- Preview de l'image -->
-        @if(imagePreview()) {
-            <img [src]="imagePreview()" alt="preview" style="width: 200px">
+        @if(imagePreview1()) {
+            <img [src]="imagePreview1()" alt="preview" style="width: 200px">
         }
         <button 
             [disabled]="isUploading()"
-            type="submit">
+            type="submit"
+            (click)="uploadImage($event, 'doc1')"
+            >
+            {{ isUploading() ? 'Upload en cours...' : 'Ajouter un document' }}
+        </button>
+    </form>
+    <form >
+        <label for="image">Document 2:</label>
+        <input 
+            type="file" 
+            accept="image/jpeg, image/png, image/webp"
+            (change)="presetImage($event, 'doc2')"
+            #fileUploader
+            >
+        
+        <!-- Preview de l'image -->
+        @if(imagePreview2()) {
+            <img [src]="imagePreview2()" alt="preview" style="width: 200px">
+        }
+        <button 
+            [disabled]="isUploading()"
+            type="submit"
+            (click)="uploadImage($event, 'doc2')"
+            >
+            {{ isUploading() ? 'Upload en cours...' : 'Ajouter un document' }}
+        </button>
+    </form>
+    <form >
+        <label for="image">Document 3:</label>
+        <input 
+            type="file" 
+            accept="image/jpeg, image/png, image/webp"
+            (change)="presetImage($event, 'doc3')"
+            #fileUploader
+            >
+        
+        <!-- Preview de l'image -->
+        @if(imagePreview3()) {
+            <img [src]="imagePreview3()" alt="preview" style="width: 200px">
+        }
+        <button 
+            [disabled]="isUploading()"
+            type="submit"
+            (click)="uploadImage($event, 'doc3')"
+            >
             {{ isUploading() ? 'Upload en cours...' : 'Ajouter un document' }}
         </button>
     </form>
 
 </div>
-<!-- <div>
+<div>
     <h3>{{tempSignal()}}</h3>
     <img  [src]="tempSignal()" alt="test">
-</div> -->
+</div>
 @if (selectedCar()) {
   <div class="selected-car-info">
     <h3>Voiture sélectionnée : {{ selectedCar()?.name }}</h3>
