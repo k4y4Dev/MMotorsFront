@@ -21,7 +21,13 @@ export class App{
 
   burgerStatus: boolean = false;
   burgerIcon: string = "fa-bars";
-  loginLink = computed(() => this.authService.isAuthenticated()?'profile':'login')
+  loginLink = computed(() => 
+  this.authService.isAdmin() 
+    ? 'dashboard' 
+    : this.authService.isAuthenticated() 
+      ? 'profile' 
+      : 'login'
+)
 
 
 

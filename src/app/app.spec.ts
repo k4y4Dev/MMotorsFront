@@ -128,6 +128,13 @@ describe('App', () => {
   // Nouveaux tests — loginLink computed
   // ──────────────────────────────────────────────
   describe('loginLink()', () => {
+    it('should return "dashboard" when user is admin', () => {
+      authServiceMock.isAdmin.mockReturnValue(true);
+      const fixture = TestBed.createComponent(App);
+      const app = fixture.componentInstance;
+      expect(app.loginLink()).toBe('dashboard');
+    });
+
     it('should return "login" when user is not authenticated', () => {
       authServiceMock.isAuthenticated.mockReturnValue(false);
       const fixture = TestBed.createComponent(App);
