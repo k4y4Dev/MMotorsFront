@@ -46,5 +46,6 @@ export class App{
   logout() {
     this.authService.logout().subscribe();
   }
+  
 
 }

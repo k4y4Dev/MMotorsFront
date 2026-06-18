@@ -41,7 +41,6 @@ jobs:
     needs: angular-tests 
     runs-on: ubuntu-24.04
     environment: prod
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -57,7 +56,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-         
       - name: Download coverage report
         uses: actions/download-artifact@v4
         with:
@@ -84,16 +82,47 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      #  Build Angular avec source maps
+      - name: Build Angular
+        run: npm run build -- --configuration production --source-map
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+
+      #  Créer release + upload source maps AVANT le docker build
+      - name: Create Sentry Release & Upload Source Maps
+        run: |
+          npx @sentry/cli releases new ${{ github.sha }}
+          npx @sentry/cli releases files ${{ github.sha }} upload-sourcemaps ./dist/motors-front/browser --rewrite
+          npx @sentry/cli releases finalize ${{ github.sha }}
+          npx @sentry/cli releases deploys ${{ github.sha }} new -e production
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+
       - name: Login to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
+      #  Docker build SANS source maps (elles sont déjà chez Sentry)
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/k4y4dev/angular-frontend:${{ github.sha }} .
+          docker build \
+            --build-arg SENTRY_RELEASE=${{ github.sha }} \
+            -t ghcr.io/k4y4dev/angular-frontend:${{ github.sha }} .
 
       - name: Push Docker image
-        run: |
-          docker push ghcr.io/k4y4dev/angular-frontend:${{ github.sha }}
+        run: docker push ghcr.io/k4y4dev/angular-frontend:${{ github.sha }}
 
       - name: Trigger Render Deploy Hook
         run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}&imgURL=ghcr.io/k4y4dev/angular-frontend:${{ github.sha }}"

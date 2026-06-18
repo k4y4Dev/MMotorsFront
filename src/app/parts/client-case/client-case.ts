@@ -43,13 +43,13 @@ export class ClientCase implements OnInit{
 
         const requests: Record<string, Observable<string>> = {};
         docs.forEach(doc => {
-            requests[doc.doc_type] = this.uploadService.getImage(doc.doc_url, this.caseData()?.email,doc.doc_type);
+            requests[doc.doc_type] = this.uploadService.getImage(doc.doc_url, doc.doc_type,this.caseData()?.email,);
         });
 
       forkJoin(requests).subscribe({
           next: (urls) => {
               this.docUrls.set(urls);
-              console.log(this.docUrls())
+
           }
       });       
       
