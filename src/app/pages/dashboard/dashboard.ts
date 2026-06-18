@@ -71,4 +71,8 @@ selectThisCase(selectedCase: CaseUserSummary, selectedCarCase: ICarResponse) {
   this.dashService.topicMenuSetter("")
 }
 
+triggerSentryTest() {
+  throw new Error("Sentry Angular Test : Connexion Production OK !");
+}
+
 }
