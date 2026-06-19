@@ -36,8 +36,15 @@ Sous forme de “bullet points”, mettez en évidence votre démarche pour dév
 
 ### Fonctionalités:
 #### Gestion users:
-- User --> consultation véhicule, création compte, login, Demande d'achat/leasing véhicule/ upload documents
-- Admin --> Gestion véhicule, gestion dossier client
+- User --> 
+        - consultation véhicule, 
+        - création compte, 
+        - login, 
+        - Demande d'achat/leasing véhicule 
+        - Upload documents
+- Admin --> 
+        - Gestion véhicule, 
+        - gestion dossier client
         
 ##### Véhicules:
 - CRUD véhicule --> Authorisation selon role
@@ -97,3 +104,33 @@ coverage --> npm run test:ci
 | app/parts/pagination  |     100 |    91.66 |     100 |     100 |                   |
 |  pagination.ts        |     100 |    91.66 |     100 |     100 | 14                |
 |-----------------------|---------|----------|---------|---------|-------------------|
+
+
+
+## Installation en Local
+
+- Pour le Back end --> voir repo `https://github.com/k4y4Dev/MMotorsBack`
+
+### Prérequis
+- Node.js (>= v20.19.0)
+- npm (>= 8.0)
+
+### Récupération projet
+
+- `mkdir mmotors-front`
+- `cd mmotors-front`
+- `git init`
+- `git clone https://github.com/k4y4Dev/MMotorsFront.git`
+
+### Installation projet
+- `npm intall`
+- Modifier le fichier environments/environments.ts selon l' url du Back end
+
+### Lancement projet
+
+- `ng serve`
+- `http://localhost:4200/`
+
+
+
+
